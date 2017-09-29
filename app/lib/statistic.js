@@ -21,7 +21,7 @@ class Statistic {
       this.log.debug('Sending statistic %s = %d', this.statsdName, this.value);
       this.statsd.gauge(this.statsdName, this.value, [ `serverName:${hostname}` ], (error, bytes) => {
         if (error) {
-          this.log.error(error);
+          this.log.error(error.stack || error);
         } else {
           this.log.debug('Success');
         }

@@ -35,7 +35,7 @@ class Logger {
     ];
 
     // Optimization -- Add console logging if not in production
-    if ((process.env.NODE_ENV !== 'production') && (process.env.NODE_ENV !== 'test')) {
+    // if ((process.env.NODE_ENV !== 'production') && (process.env.NODE_ENV !== 'test')) {
       transports.push(
         new (winston.transports.Console) ({
           level: 'debug',
@@ -43,15 +43,15 @@ class Logger {
         })
       );
 
-      transports.push(
-        new (winston.transports.File) ({
-          filename: this.logDir + '/debug.log',
-          name: 'debug-log',
-          level: 'debug',
-          formatter: this.formatter
-        })
-      );
-    }
+      // transports.push(
+      //   new (winston.transports.File) ({
+      //     filename: this.logDir + '/debug.log',
+      //     name: 'debug-log',
+      //     level: 'debug',
+      //     formatter: this.formatter
+      //   })
+      // );
+    // }
 
     this.options = {
       exitOnError: false,
