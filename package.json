@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A NodeJS statsd agent to push memory, cpu, network and disk usage over UDP",
   "main": "app.js",
   "directories": {
