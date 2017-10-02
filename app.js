@@ -18,7 +18,13 @@ class App {
   constructor() {
     this.logger = {};
     this.log = {};
+    this.setupLogging();
     this.commandHandler();
+  }
+
+  setupLogging() {
+    this.logger = new Logger(config);
+    this.log = this.logger.log;
   }
 
   //
@@ -35,7 +41,7 @@ class App {
     program.parse(process.argv);
 
     if (program.config) {
-      console.log("Loading external configuration...");
+      this.log.info('Loading external configuration...');
       let results, data;
       try {
         if (program.config.substr(-3) === '.js') {
@@ -46,8 +52,8 @@ class App {
           data = JSON.parse(results);
           config = data;
         } else {
-          console.log("Invalid file provided, external configuration must end with .js or .json");
-          console.log("Falling back to default config");
+          this.log.info('Invalid file provided, external configuration must end with .js or .json');
+          this.log.info('Falling back to default config');
         }
       } catch(err) {
         console.log(err.stack || err);
@@ -99,16 +105,12 @@ class App {
     process.on('SIGINT', this.handleSIGINT.bind(this));
 
     // Start Logging & Server
-    this.setupLogging();
     this.log.debug(config);
     this.server = new Server(config, this.log);
     this.server.init();
   }
 
-  setupLogging() {
-    this.logger = new Logger(config);
-    this.log = this.logger.log;
-  }
+
 
 }
 
