@@ -49,11 +49,11 @@ class DiskMonitor extends Monitor {
             total += diskStatistics.total;
             let name = diskStatistics.name;
             delete diskStatistics.name;
-            allStatistics[name] = diskStatistics;
+            //allStatistics[name] = diskStatistics;
           }
         }
 
-        allStatistics.total = {
+        allStatistics = {
           'free': totalFree,
           'total': total,
           'used': (total - totalFree)
