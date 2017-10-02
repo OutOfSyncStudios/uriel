@@ -5,13 +5,13 @@ class LogStub {
   constructor() {
   }
 
-  log(...) { return; }
-  silly(...) { return; }
-  debug(...) { return; }
-  verbose(...) { return; }
-  info(...) { return; }
-  warn(...) { return; }
-  error(...) { return; }
+  log(...args) { return; }
+  silly(...args) { return; }
+  debug(...args) { return; }
+  verbose(...args) { return; }
+  info(...args) { return; }
+  warn(...args) { return; }
+  error(...args) { return; }
 }
 
 module.exports = LogStub;
