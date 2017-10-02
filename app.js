@@ -2,7 +2,9 @@
 let
   _                   = require('lodash')
   , fs                = require('fs')
+  , program           = require('commander')
   , config            = require('./config/config')
+  , pack              = require('./package.json')
   , Server            = require('./app/server.js')
 
   , Logger            = require('./app/lib/logger')
@@ -16,6 +18,42 @@ class App {
   constructor() {
     this.logger = {};
     this.log = {};
+    this.commandHandler();
+  }
+
+  //
+  commandHandler() {
+    program
+      .version(pack.version)
+      .option('-c, --config <filename>', 'Use the specified configuration file instead of the file in ./config/');
+
+    program.on('--help', () => {
+      console.log('');
+      console.log(`  Uriel v${pack.version}`);
+    });
+
+    program.parse(process.argv);
+
+    if (program.config) {
+      console.log("Loading external configuration...");
+      let results, data;
+      try {
+        if (program.config.substr(-3) === '.js') {
+          config = require(program.config);
+        }
+        else if (program.config.substr(-5) === '.json') {
+          results = fs.readFileSync(program.config);
+          data = JSON.parse(results);
+          config = data;
+        } else {
+          console.log("Invalid file provided, external configuration must end with .js or .json");
+          console.log("Falling back to default config");
+        }
+      } catch(err) {
+        console.log(err.stack || err);
+        process.exit(1);
+      }
+    }
   }
 
   // ****************************************************************************
