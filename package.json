@@ -2,7 +2,7 @@
   "name": "uriel",
   "version": "1.1.0",
   "description": "A NodeJS statsd agent to push memory, cpu, network and disk usage over UDP",
-  "main": "app.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
@@ -25,7 +25,8 @@
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "mocha": "^3.5.3",
-    "nyc": "^11.2.1"
+    "nyc": "^11.2.1",
+    "unit.js": "^2.0.0"
   },
   "scripts": {
     "build": "gulp",
