@@ -137,3 +137,6 @@ Initializes and starts the Uriel statsD agent
 
 ### .close()
 Shuts down the Uriel StatsD agent
+
+## Why the name?
+The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watcher things, as these concepts have overlap with systems monitoring.
