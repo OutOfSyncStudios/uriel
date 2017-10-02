@@ -130,7 +130,7 @@ class Server {
 
       this.log.debug(`Sending statistics (${monitor.name} monitor)...`);
       monitor.send(this.isActive);
-      this.log.debug(`Sent statistics (${monitor.name} monitor).`);
+      this.log.debug(`Sent statistics (${monitor.name} monitor) to ${this.config.statsd.host} as ${this.hostname}`);
 
       monitor.clear();
     }
