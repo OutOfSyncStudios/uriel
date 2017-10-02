@@ -3,7 +3,7 @@
     "shutdownTime": 1000,
     "pollingTimer": 5000
   },
-  "logging": { 
+  "logging": {
     "logDir": "./logs",
     "options": {
       "json": false,
@@ -16,6 +16,7 @@
     "host": "127.0.0.1",
     "port": 8125,
     "name": "Test",
+    "attachHostName": false,
     "telegraf": false
   }
 }

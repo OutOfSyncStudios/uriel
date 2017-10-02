@@ -27,14 +27,20 @@ class Server {
         host: '127.0.0.1',
         port: '8125',
         name: 'Uriel',
+        attachHostName: false,
         telegraf: false
       }
     }
+    let osHost = os.hostname();
 
     this.statsd = {};
     this.log = log || new LogStub();
     this.config = _.merge(defaults, (config || {}));
-    this.hostname = config.statsd.name || os.hostname();
+    this.hostname = config.statsd.name || osHost;
+
+    if (this.config.statsd.attachHostName && this.hostname !== osHost) {
+      this.hostname = this.hostname + '_' + osHost;
+    }
 
     // Set the server base configuration
     this.isActive = false;
