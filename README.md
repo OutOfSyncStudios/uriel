@@ -68,7 +68,13 @@ $ cd uriel
 ```
 
 ### Configuration
-The file `config/config.js` should be edited to reflect any changes you may have. The standalone server uses [Winston](https://www.npmjs.com/package/winston) for logging and logs to the `logs/` folder.
+The file `config/config.js` should be edited to reflect any changes you may have. The standalone server uses [Winston](https://www.npmjs.com/package/winston) for logging and logs to the `logs/` folder.  
+
+Alternatively, the `-c` switch can be passed on the CLI to specify an external configuration file in either `.js` or `.json` format.
+
+```
+$ node app -c config/example-external-config.json
+```
 
 ### Running
 #### With NodeJS
