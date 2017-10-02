@@ -16,6 +16,7 @@ module.exports = {
     'host': '127.0.0.1',
     'port': 8125,
     'name': 'Test',
+    'attachHostName': false,
     'telegraf': false
   },
 }

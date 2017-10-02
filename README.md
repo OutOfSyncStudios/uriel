@@ -39,6 +39,7 @@ The configuration object which is passed to Uriel must contain the following (wi
     host: '127.0.0.1',
     port: '8125',
     name: 'Uriel',
+    attachHostName: false,
     telegraf: false
   }
 }
@@ -48,7 +49,8 @@ The configuration object which is passed to Uriel must contain the following (wi
  * `statsd.host` -- the server host where the StatsD server is running.
  * `statsd.port` -- the UDP port that the StatsD server is listening on.
  * `statsd.name` -- the `serverName` tag that is provided for all stats that are pushed. This allows info from differing servers to be distinguished from one another.
- * `statsd.telegraf` -- `true` or `false` value that specifies that the listening server is running telegraf
+ * `statsd.attachHostName` -- `true` or `false` value that specifies that the os hostname should be appended to the `serverName`.
+ * `statsd.telegraf` -- `true` or `false` value that specifies that the listening server is running telegraf.
 
 ### Logging
 The logger object supports passing any object which supports the `log`, `debug`, `info`, and `error` methods such as those provided by [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan)
