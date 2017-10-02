@@ -18,9 +18,22 @@ let server = {};
  */
 class Server {
   constructor(config, log) {
+    const defaults = {
+      server: {
+        shutdownTime: 1000,
+        pollingTimer: 5000
+      },
+      statsd: {
+        host: '127.0.0.1',
+        port: '8125',
+        name: 'Uriel',
+        telegraf: false
+      }
+    }
+
     this.statsd = {};
     this.log = log || new LogStub();
-    this.config = config;
+    this.config = _.merge(defaults, (config || {}));
     this.hostname = config.statsd.name || os.hostname();
 
     // Set the server base configuration
