@@ -3,6 +3,7 @@
 // Dependencies
 const
   _                   = require('./lib/lodashExt')
+  , LogStub           = require('./lib/logstub')
   , fs                = require('fs')
   , os                = require('os')
   , moment            = require('moment')
@@ -18,7 +19,7 @@ let server = {};
 class Server {
   constructor(config, log) {
     this.statsd = {};
-    this.log = log;
+    this.log = log || new LogStub();
     this.config = config;
     this.hostname = config.statsd.name || os.hostname();
 
