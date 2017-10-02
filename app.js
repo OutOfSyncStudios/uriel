@@ -49,12 +49,15 @@ class App {
         }
         else if (program.config.substr(-5) === '.json') {
           results = fs.readFileSync(program.config);
-          data = JSON.parse(results);
-          config = data;
+          config = JSON.parse(results);
         } else {
           this.log.info('Invalid file provided, external configuration must end with .js or .json');
           this.log.info('Falling back to default config');
         }
+        this.log.debug('Settings:');
+        this.log.debug(`Polling Timer: ${config.server.pollingTimer}`);
+        this.log.debug(`StatsD Host: ${config.statsd.host}:${config.statsd.port}`);
+        this.log.debug(`Server Name: ${config.statsd.name}`);
       } catch(err) {
         console.log(err.stack || err);
         process.exit(1);

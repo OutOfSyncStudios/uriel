@@ -42,6 +42,8 @@ class Server {
       this.hostname = this.hostname + '_' + osHost;
     }
 
+    this.log.debug(`Using ${this.hostname} to connect to ${this.config.statsd.host}:${this.config.statsd.port}...`);
+
     // Set the server base configuration
     this.isActive = false;
     this.monitors = {};
