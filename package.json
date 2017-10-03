@@ -17,6 +17,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "node-netstat": "^1.4.2",
+    "systeminformation": "^3.30.4",
     "winston": "^2.3.1"
   },
   "devDependencies": {
