@@ -7,7 +7,7 @@ let
 
 class DiskIOMonitor extends Monitor {
   constructor(hostname, statsd, log) {
-    super('diskIO', hostname, statsd, log);
+    super('diskio', hostname, statsd, log);
   }
 
   collect() {
