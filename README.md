@@ -110,8 +110,10 @@ For all CPUs
 
 ### Memory
  * `mem.free`
+ * `mem.free_percent`
  * `mem.total`
  * `mem.used`
+ * `mem.used_percent`
 
 ### Network
  * `network.close_wait`
@@ -122,10 +124,28 @@ For all CPUs
  * `network.syn_sent`
  * `network.time_wait`
 
+### Disk IO
+ * `diskio.io_time`
+ * `diskio.iops_in_progress`
+ * `diskio.weighted_io_time`
+ * `diskio.read_bytes`
+ * `diskio.read_time`
+ * `diskio.write_bytes`
+ * `diskio.write_time`
+
 ### Disk Usage
  * `disk.free`
+ * `disk.free_percent`
  * `disk.total`
  * `disk.used`
+ * `disk.used_percent`
+
+## Swap
+ * `swap.free`
+ * `swap.free_percent`
+ * `swap.total`
+ * `swap.used`
+ * `swap.used_percent`
 
 For all disks
 
@@ -133,7 +153,7 @@ For all disks
 
 ### constructor(config[, logger])
 ```
-const Uriel = require('uriel');
+const Uriel = require(`uriel');
 
 let statsd = new Uriel(config, logger);
 ```
