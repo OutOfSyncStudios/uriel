@@ -16,8 +16,10 @@ class MemoryMonitor extends Monitor {
 
     this.setStats({
       'free': freemem,
+      'free_percent': (freemem / totalmem) * 100,
       'total': totalmem,
       'used': (totalmem - freemem),
+      'used_percent': ((totalmem - freemem) / totalmem) * 100
     });
   }
 }

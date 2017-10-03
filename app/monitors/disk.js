@@ -28,8 +28,10 @@ class DiskMonitor extends Monitor {
             return {
               'name': deviceMountPathStatsdName,
               'free': deviceInfo.free,
+              'free_percent': (deviceInfo.free / deviceInfo.total) * 100,
               'total': deviceInfo.total,
-              'used': (deviceInfo.total - deviceInfo.free)
+              'used': (deviceInfo.total - deviceInfo.free),
+              'used_percent': ((deviceInfo.total - deviceInfo.free) / deviceInfo.total) * 100
             };
           })
           .catch(err => {
@@ -55,8 +57,10 @@ class DiskMonitor extends Monitor {
 
         allStatistics = {
           'free': totalFree,
+          'free_percent': (totalFree / total) * 100,
           'total': total,
-          'used': (total - totalFree)
+          'used': (total - totalFree),
+          'used_percent': ((total - totalFree) / total) * 100
         }
 
         this.setStats(allStatistics);
