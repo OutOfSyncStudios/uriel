@@ -7,7 +7,7 @@
 
 [![NPM](https://nodei.co/npm/uriel.png?downloads=true)](https://nodei.co/npm/uriel/)
 
-Uriel is a NodeJS StatsD agent that pushes system, memory, cpu, network and disk usage statistics to any compatible StatsD (e.g. StatsD, Telegraf, DogStatsD) listener over UDP.
+Uriel is a NodeJS StatsD agent that pushes system, memory, cpu, network, swap, diskio, and disk usage statistics to any compatible StatsD (e.g. StatsD, Telegraf, DogStatsD) listener over UDP.
 
 It can be run either as standalone server, or it can be embedded within another application.
 
