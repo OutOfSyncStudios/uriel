@@ -13,12 +13,13 @@ class SwapMonitor extends Monitor {
   collect() {
     si.mem()
     .then((data) => {
+      let total = data.swaptotal;
       this.setStats({
         'free': data.swapfree,
-        'free_percent': (data.swapfree / data.swaptotal) * 100,
-        'total': data.swaptotal,
+        'free_percent': (total === 0)?0:((data.swapfree / total) * 100),
+        'total': total,
         'used': data.swapused,
-        'used_percent': (data.swapused / data.swaptotal) * 100
+        'used_percent': (total === 0)?0:((data.swapused / total) * 100)
       });
     })
     .catch((err) => {
