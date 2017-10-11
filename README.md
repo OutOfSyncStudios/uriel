@@ -28,7 +28,7 @@ $ npm install uriel
 ```
 
 ### Configuration
-The configuration object which is passed to Uriel must contain the following (with defaults provided below):
+The configuration parameter expects and object that contains the following (with defaults provided below):
 ```
 {
   server: {
@@ -53,7 +53,7 @@ The configuration object which is passed to Uriel must contain the following (wi
  * `statsd.telegraf` -- `true` or `false` value that specifies that the listening server is running telegraf.
 
 ### Logging
-The logger object supports passing any object which supports the `log`, `debug`, `info`, and `error` methods such as those provided by [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan)
+The logger parameter expects an object or class instance that supports the `log`, `debug`, `info`, and `error` methods. For example, an instance of [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan).
 
 ### Startup
 To start the statsd agent the `.init()` method should be used.
@@ -87,7 +87,12 @@ $ node app.js
 
 #### With PM2
 ```
-$ pm2 start app.js -n "Uriel" -i 0
+$ pm2 start app.js -n "Uriel" -i 1
+```
+
+#### With PM2 and an external configuration
+```
+$ pm2 start app.js -n "Uriel" -i 1 -- -c <fullpath to config file>
 ```
 
 ## StatsD Buckets
@@ -167,4 +172,4 @@ Initializes and starts the Uriel statsD agent
 Shuts down the Uriel StatsD agent
 
 ## Why the name?
-The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watcher things, as these concepts have overlap with systems monitoring.
+The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watching things, as these concepts have overlap with systems monitoring.
