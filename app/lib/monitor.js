@@ -14,11 +14,11 @@ class Monitor {
     this.statistics = [];
   }
 
-  setStats(obj) {
+  setStats(obj, tags) {
     this.log.debug('Setting statistics (%s)...', this.name);
 
     this.statistics = _.toPairs(obj).map((pair) => {
-      return new Statistic(`${this.name}.${pair[0]}`, pair[1], this.hostname, this.statsd, this.log);
+      return new Statistic(`${this.name}.${pair[0]}`, pair[1], this.hostname, this.statsd, this.log, tags);
     });
   }
 
