@@ -23,7 +23,7 @@ class CpuMonitor extends Monitor {
       'usage_sys': ((intervalCpuTimes.sys / totalIntervalCpuTime) * 100).toFixed(2),
       'usage_idle': ((intervalCpuTimes.idle / totalIntervalCpuTime) * 100).toFixed(2),
       'usage_irq': ((intervalCpuTimes.irq / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_total': 100 - (((intervalCpuTimes.idle / totalIntervalCpuTime) * 100).toFixed(2)
+      'usage_total': 100 - ((intervalCpuTimes.idle / totalIntervalCpuTime) * 100).toFixed(2)
     });
   }
 
