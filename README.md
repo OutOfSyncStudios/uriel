@@ -110,6 +110,7 @@ The following buckets are used to capture statistics:
  * `cpu.usage_system`
  * `cpu.usage_idle`
  * `cpu.usage_irq`
+ * `cpu.usage_total`
 
 For all CPUs
 
