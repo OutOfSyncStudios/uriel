@@ -7,12 +7,9 @@
     "test": "test"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
     "chalk": "^2.1.0",
     "change-case": "^3.0.1",
     "commander": "^2.11.0",
-    "diskusage": "^0.2.3",
-    "drivelist": "^5.1.8",
     "hot-shots": "^4.7.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
