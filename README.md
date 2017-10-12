@@ -3,7 +3,7 @@
 [![Actual version published on npm](http://img.shields.io/npm/v/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Travis build status](https://travis-ci.org/chronosis/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Total npm module downloads](http://img.shields.io/npm/dt/uriel.svg)](https://www.npmjs.org/package/uriel)
-[![npm package quality](http://npm.packagequality.com/shield/uriel.svg)](https://www.npmjs.org/package/uriel)
+[![npm package quality](http://npm.packagequality.com/badge/uriel.png)](https://www.npmjs.org/package/uriel)
 
 [![NPM](https://nodei.co/npm/uriel.png?downloads=true)](https://nodei.co/npm/uriel/)
 
@@ -28,7 +28,7 @@ $ npm install uriel
 ```
 
 ### Configuration
-The configuration object which is passed to Uriel must contain the following (with defaults provided below):
+The configuration parameter expects and object that contains the following (with defaults provided below):
 ```
 {
   server: {
@@ -53,7 +53,7 @@ The configuration object which is passed to Uriel must contain the following (wi
  * `statsd.telegraf` -- `true` or `false` value that specifies that the listening server is running telegraf.
 
 ### Logging
-The logger object supports passing any object which supports the `log`, `debug`, `info`, and `error` methods such as those provided by [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan)
+The logger parameter expects an object or class instance that supports the `log`, `debug`, `info`, and `error` methods. For example, an instance of [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan).
 
 ### Startup
 To start the statsd agent the `.init()` method should be used.
@@ -87,7 +87,12 @@ $ node app.js
 
 #### With PM2
 ```
-$ pm2 start app.js -n "Uriel" -i 0
+$ pm2 start app.js -n "Uriel" -i 1
+```
+
+#### With PM2 and an external configuration
+```
+$ pm2 start app.js -n "Uriel" -i 1 -- -c <fullpath to config file>
 ```
 
 ## StatsD Buckets
@@ -105,6 +110,7 @@ The following buckets are used to capture statistics:
  * `cpu.usage_system`
  * `cpu.usage_idle`
  * `cpu.usage_irq`
+ * `cpu.usage_total`
 
 For all CPUs
 
@@ -167,4 +173,4 @@ Initializes and starts the Uriel statsD agent
 Shuts down the Uriel StatsD agent
 
 ## Why the name?
-The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watcher things, as these concepts have overlap with systems monitoring.
+The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watching things, as these concepts have overlap with systems monitoring.
