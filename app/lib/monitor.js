@@ -1,9 +1,6 @@
 // app/lib/monitor.js
 
-let
-  _               = require('./lodashExt')
-  , Statistic     = require('./statistic')
-;
+const __ = require('./lodashExt'), Statistic = require('./statistic');
 
 class Monitor {
   constructor(name, hostname, statsd, log) {
@@ -17,7 +14,7 @@ class Monitor {
   setStats(obj, tags) {
     this.log.debug('Setting statistics (%s)...', this.name);
 
-    this.statistics = _.toPairs(obj).map((pair) => {
+    this.statistics = __.toPairs(obj).map((pair) => {
       return new Statistic(`${this.name}.${pair[0]}`, pair[1], this.hostname, this.statsd, this.log, tags);
     });
   }
@@ -28,8 +25,8 @@ class Monitor {
       this.log.debug('Sending statistics...');
 
       const statistics = this.statistics;
-      for (let i = 0, j = statistics.length; i < j; i++) {
-        let stat = statistics[i];
+      for (let itr = 0, jtr = statistics.length; itr < jtr; itr++) {
+        const stat = statistics[itr];
         stat.send();
       }
     }

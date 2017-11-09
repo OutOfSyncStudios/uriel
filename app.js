@@ -1,14 +1,14 @@
 // app.js
-let
-  _                   = require('lodash')
-  , fs                = require('fs')
-  , program           = require('commander')
-  , config            = require('./config/config')
-  , pack              = require('./package.json')
-  , Server            = require('./app/server.js')
+/* eslint no-console: "off" */
 
-  , Logger            = require('./app/lib/logger')
-;
+const __ = require('lodash');
+const fs = require('fs');
+const program = require('commander');
+const pack = require('./package.json');
+const Server = require('./app/server.js');
+const Logger = require('./app/lib/logger');
+
+let config = require('./config/config');
 
 /**
   * Class representing the app
@@ -42,12 +42,11 @@ class App {
 
     if (program.config) {
       this.log.info('Loading external configuration...');
-      let results, data;
+      let results;
       try {
         if (program.config.substr(-3) === '.js') {
           config = require(program.config);
-        }
-        else if (program.config.substr(-5) === '.json') {
+        } else if (program.config.substr(-5) === '.json') {
           results = fs.readFileSync(program.config);
           config = JSON.parse(results);
         } else {
@@ -58,7 +57,7 @@ class App {
         this.log.debug(`Polling Timer: ${config.server.pollingTimer}`);
         this.log.debug(`StatsD Host: ${config.statsd.host}:${config.statsd.port}`);
         this.log.debug(`Server Name: ${config.statsd.name}`);
-      } catch(err) {
+      } catch (err) {
         console.log(err.stack || err);
         process.exit(1);
       }
@@ -69,7 +68,7 @@ class App {
   //  Application Shutdown Logic
   // ***************************************************************************/
   handleSIGTERM() {
-   this.close(15);
+    this.close(15);
   }
 
   handleSIGINT() {
@@ -93,10 +92,18 @@ class App {
 
     // Perform gracful shutdown here
     this.log.info(`Received exit code ${sigCode}, performing graceful shutdown`);
-    if (!_.isNull(this.server) && !_.isUndefined(this.server)) this.server.close();   // Shutdown the server
-
+    if (!__.isNull(this.server) && !__.isUndefined(this.server)) {
+      this.server.close();
+    }
+    // Shutdown the server
     // End the process after allowing time to close cleanly
-    setTimeout((c) => { process.exit(c); }, config.server.shutdownTime, code);
+    setTimeout(
+      (errCode) => {
+        process.exit(errCode);
+      },
+      config.server.shutdownTime,
+      code
+    );
   }
 
   // ****************************************************************************
@@ -112,10 +119,7 @@ class App {
     this.server = new Server(config, this.log);
     this.server.init();
   }
-
-
-
 }
 
-let app = new App();
+const app = new App();
 app.init();

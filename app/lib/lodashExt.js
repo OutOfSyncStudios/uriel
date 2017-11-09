@@ -1,29 +1,27 @@
 // app/lib/lodashExt.js
 
-let
-  _                 = require('lodash')
-;
+const __ = require('lodash');
 
-let isUnset = (obj) => {
-  let b;
+const isUnset = (obj) => {
+  let test;
   try {
-    b = (_.isNull(obj) || _.isUndefined(obj));
-  } catch (e) {
-    b = true;
+    test = __.isNull(obj) || __.isUndefined(obj);
+  } catch (err) {
+    test = true;
   }
-  return b;
-}
+  return test;
+};
 
-let hasValue = (obj) => {
-  return !(_.isUnset(obj));
-}
+const hasValue = (obj) => {
+  return !__.isUnset(obj);
+};
 
-let implies = (a, b) => {
-  return (!a || b);
-}
+const implies = (va, vb) => {
+  return !va || vb;
+};
 
-_.mixin({'isUnset': isUnset});
-_.mixin({'hasValue': hasValue});
-_.mixin({'implies': implies});
+__.mixin({ isUnset: isUnset });
+__.mixin({ hasValue: hasValue });
+__.mixin({ implies: implies });
 
-module.exports = _;
+module.exports = __;

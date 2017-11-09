@@ -1,12 +1,8 @@
 // app/monitors/index.js
 
-const
-  _                 = require('lodash')
-  , fs                = require('fs')
-  , path              = require('path')
-;
+const fs = require('fs'), path = require('path');
 
-let monitors = {};
+const monitors = {};
 
 /*
  * This iterates through all .js files in the routes folder and loads them in
@@ -16,17 +12,17 @@ let monitors = {};
  * The `monitorr` object is returned to the paired `require('thisLib')` statement
  * inside the host code.
  */
-
 module.exports = (hostname, statsd, log) => {
-   log.debug(' - Loading Monitor - ');
-   fs.readdirSync(__dirname)
-     .filter(function(file) {
-       return (file.substr(-3) === '.js') && (file.indexOf('.') !== 0) && (file !== 'index.js');
-     })
-     .forEach(function(file) {
-       let cls = require(path.join(__dirname, file));
-       log.debug(`Loading monitor: '${cls.name}'`);
-       monitors[cls.name] = new cls(hostname, statsd, log);
-     });
-   return monitors;
- }
+  log.debug(' - Loading Monitor - ');
+  fs
+    .readdirSync(__dirname)
+    .filter((file) => {
+      return file.substr(-3) === '.js' && file.indexOf('.') !== 0 && file !== 'index.js';
+    })
+    .forEach((file) => {
+      const ProxyClass = require(path.join(__dirname, file));
+      log.debug(`Loading monitor: '${ProxyClass.name}'`);
+      monitors[ProxyClass.name] = new ProxyClass(hostname, statsd, log);
+    });
+  return monitors;
+};

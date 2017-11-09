@@ -1,5 +1,1 @@
-module.exports = {
-  'main': 'app.js',
-  'devFolder': 'app/',
-  'configFolder': 'config/'
-}
+module.exports = { main: 'app.js', devFolder: 'app/', configFolder: 'config/', testFolder: 'test/' };

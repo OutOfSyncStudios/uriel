@@ -1,9 +1,6 @@
 // app/monitors/cpu.js
 
-let
-  os          = require('os')
-  , Monitor   = require('../lib/monitor')
-;
+const os = require('os'), Monitor = require('../lib/monitor');
 
 class CpuMonitor extends Monitor {
   constructor(hostname, statsd, log) {
@@ -11,31 +8,35 @@ class CpuMonitor extends Monitor {
   }
 
   collect() {
-    let intervalCpuTimes = this.getIntervalCpuTimes();
+    const intervalCpuTimes = this.getIntervalCpuTimes();
 
-    if (intervalCpuTimes == null) { return; }
+    if (intervalCpuTimes === null) {
+      return;
+    }
 
-    let totalIntervalCpuTime = intervalCpuTimes.user + intervalCpuTimes.nice + intervalCpuTimes.sys + intervalCpuTimes.idle + intervalCpuTimes.irq;
+    const totalIntervalCpuTime = intervalCpuTimes.user + intervalCpuTimes.nice + intervalCpuTimes.sys +
+      intervalCpuTimes.idle +
+      intervalCpuTimes.irq;
 
     this.setStats({
-      'usage_user': ((intervalCpuTimes.user / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_nice': ((intervalCpuTimes.nice / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_sys': ((intervalCpuTimes.sys / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_idle': ((intervalCpuTimes.idle / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_irq': ((intervalCpuTimes.irq / totalIntervalCpuTime) * 100).toFixed(2),
-      'usage_total': 100 - ((intervalCpuTimes.idle / totalIntervalCpuTime) * 100).toFixed(2)
+      usage_user: (intervalCpuTimes.user / totalIntervalCpuTime * 100).toFixed(2),
+      usage_nice: (intervalCpuTimes.nice / totalIntervalCpuTime * 100).toFixed(2),
+      usage_sys: (intervalCpuTimes.sys / totalIntervalCpuTime * 100).toFixed(2),
+      usage_idle: (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2),
+      usage_irq: (intervalCpuTimes.irq / totalIntervalCpuTime * 100).toFixed(2),
+      usage_total: 100 - (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2)
     });
   }
 
   getIntervalCpuTimes() {
-    let newCpuTimes = this.getCpuTimes();
+    const newCpuTimes = this.getCpuTimes();
 
-    if (this.currentCpuTimes == null) {
+    if (this.currentCpuTimes === null) {
       this.currentCpuTimes = newCpuTimes;
       return null;
     }
 
-    let intervalCpuTimes = {
+    const intervalCpuTimes = {
       user: newCpuTimes.user - this.currentCpuTimes.user,
       nice: newCpuTimes.nice - this.currentCpuTimes.nice,
       sys: newCpuTimes.sys - this.currentCpuTimes.sys,
@@ -49,18 +50,12 @@ class CpuMonitor extends Monitor {
   }
 
   getCpuTimes() {
-    let cpus = os.cpus();
+    const cpus = os.cpus();
 
-    let newCpuTimes = {
-      user: 0,
-      nice: 0,
-      sys: 0,
-      idle: 0,
-      irq: 0
-    };
+    const newCpuTimes = { user: 0, nice: 0, sys: 0, idle: 0, irq: 0 };
 
-    for (let i = 0, j = cpus.length; i < j; i++) {
-      let cpu = cpus[i];
+    for (let itr = 0, jtr = cpus.length; itr < jtr; itr++) {
+      const cpu = cpus[itr];
 
       newCpuTimes.user += cpu.times.user;
       newCpuTimes.nice += cpu.times.nice;

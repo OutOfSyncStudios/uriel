@@ -1,36 +1,16 @@
 {
   "name": "uriel",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "chalk": "^2.1.0",
-    "change-case": "^3.0.1",
-    "commander": "^2.11.0",
-    "hot-shots": "^4.7.0",
-    "lodash": "^4.17.4",
-    "moment": "^2.18.1",
-    "node-netstat": "^1.4.2",
-    "systeminformation": "^3.30.4",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0",
-    "gulp-mocha": "^4.3.1",
-    "gulp-notify": "^3.0.0",
-    "gulp-plumber": "^1.1.0",
-    "mocha": "^3.5.3",
-    "nyc": "^11.2.1",
-    "unit.js": "^2.0.0"
-  },
   "scripts": {
-    "build": "gulp",
+    "start": "node app.js",
     "test": "nyc mocha",
-    "start": "node app.js"
+    "build": "gulp",
+    "fix": "gulp fix",
+    "lint": "gulp lint",
+    "coverage": "nyc --reporter=lcov mocha && cat ./coverage/lcov.info | codacy-coverage",
+    "pretty": "gulp pretty"
   },
   "repository": {
     "type": "git",
@@ -48,5 +28,33 @@
   "bugs": {
     "url": "https://github.com/chronosis/uriel/issues"
   },
-  "homepage": "https://github.com/chronosis/uriel#readme"
+  "homepage": "https://github.com/chronosis/uriel#readme",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "change-case": "^3.0.1",
+    "commander": "^2.11.0",
+    "hot-shots": "^4.7.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "node-netstat": "^1.4.2",
+    "systeminformation": "^3.30.4",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "codacy-coverage": "^2.0.3",
+    "eslint": "^4.10.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "gulp-mocha": "^4.3.1",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-prettier": "^1.1.0",
+    "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
+    "prettier": "^1.8.2",
+    "unit.js": "^2.0.0"
+  }
 }
