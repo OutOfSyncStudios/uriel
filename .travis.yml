@@ -3,7 +3,9 @@ node_js:
 - node
 before_script:
 - npm install -g gulp-cli
-script: gulp
+script:
+- gulp
+- npm run coverage
 cache:
   directories:
   - node_modules
