@@ -2,13 +2,12 @@ const test = require('unit.js');
 const config = require('../config/config');
 
 describe('uriel', () => {
-
-  let Uriel = require('../');
-  let statsd = new Uriel(config);
+  const Uriel = require('../');
+  const statsd = new Uriel(config);
 
   it('load', () => {
-    let myModule = require('../');
-    let myClass = new myModule(config)
+    const MyModule = require('../');
+    const myClass = new MyModule(config);
 
     test.assert(myClass instanceof Uriel);
   });
@@ -22,5 +21,4 @@ describe('uriel', () => {
     statsd.close();
     test.assert(!statsd.isActive);
   });
-
 });

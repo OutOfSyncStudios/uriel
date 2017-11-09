@@ -1,9 +1,6 @@
 // app/monitors/system.js
 
-let
-  os          = require('os')
-  , Monitor   = require('../lib/monitor')
-;
+const os = require('os'), Monitor = require('../lib/monitor');
 
 class SystemMonitor extends Monitor {
   constructor(hostname, statsd, log) {
@@ -11,15 +8,10 @@ class SystemMonitor extends Monitor {
   }
 
   collect() {
-    let load = os.loadavg() || [0,0,0];
-    let uptime = os.uptime() || 0;
+    const load = os.loadavg() || [0, 0, 0];
+    const uptime = os.uptime() || 0;
 
-    this.setStats({
-      'load1': load[0],
-      'load5': load[1],
-      'load15': load[2],
-      'uptime': uptime
-    });
+    this.setStats({ load1: load[0], load5: load[1], load15: load[2], uptime: uptime });
   }
 }
 

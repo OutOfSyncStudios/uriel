@@ -1,16 +1,12 @@
 // app/server.js
 
 // Dependencies
-const
-  _                   = require('./lib/lodashExt')
-  , LogStub           = require('./lib/logstub')
-  , fs                = require('fs')
-  , os                = require('os')
-  , moment            = require('moment')
-  , StatsD            = require('hot-shots')
-;
+const __ = require('./lib/lodashExt'),
+  LogStub = require('./lib/logstub'),
+  os = require('os'),
+  StatsD = require('hot-shots');
 
-let server = {};
+// const server = {};
 
 /**
  * @class Server
@@ -19,27 +15,18 @@ let server = {};
 class Server {
   constructor(config, log) {
     const defaults = {
-      server: {
-        shutdownTime: 1000,
-        pollingTimer: 5000
-      },
-      statsd: {
-        host: '127.0.0.1',
-        port: '8125',
-        name: 'Uriel',
-        attachHostName: false,
-        telegraf: false
-      }
-    }
-    let osHost = os.hostname();
+      server: { shutdownTime: 1000, pollingTimer: 5000 },
+      statsd: { host: '127.0.0.1', port: '8125', name: 'Uriel', attachHostName: false, telegraf: false }
+    };
+    const osHost = os.hostname();
 
     this.statsd = {};
     this.log = log || new LogStub();
-    this.config = _.merge(defaults, (config || {}));
+    this.config = __.merge(defaults, config || {});
     this.hostname = config.statsd.name || osHost;
 
     if (this.config.statsd.attachHostName && this.hostname !== osHost) {
-      this.hostname = this.hostname + '_' + osHost;
+      this.hostname = `${this.hostname}_${osHost}`;
     }
 
     this.log.debug(`Using ${this.hostname} to connect to ${this.config.statsd.host}:${this.config.statsd.port}...`);
@@ -48,7 +35,7 @@ class Server {
     this.isActive = false;
     this.monitors = {};
     this.timer = null;
-  };
+  }
 
   // ****************************************************************************
   //  Server Shutdown Logic
@@ -57,14 +44,14 @@ class Server {
     // Perform gracful shutdown here
     this.isActive = false;
 
-    if (_.hasValue(this.timer)) {
-      this.log.debug(`Shutting down polling timer.`);
+    if (__.hasValue(this.timer)) {
+      this.log.debug('Shutting down polling timer.');
       clearInterval(this.timer);
     }
 
-    if (_.hasValue(this.statsd)) {
-      this.log.debug(`Closing UDP connection to statsd server.`);
-      this.statsd.close()
+    if (__.hasValue(this.statsd)) {
+      this.log.debug('Closing UDP connection to statsd server.');
+      this.statsd.close();
       this.statsd = null;
     }
   }
@@ -87,14 +74,14 @@ class Server {
   // ***************************************************************************/
   setupConnection() {
     // connect to hot-shots to connect UDP server
-    this.log.debug(`Making UDP connection to statsd server.`);
+    this.log.debug('Making UDP connection to statsd server.');
     this.statsd = new StatsD({
       host: this.config.statsd.host,
       post: this.config.statsd.post,
       telegraf: this.config.statsd.telegraf || false,
-      errorHander: ((err) => {
+      errorHander: (err) => {
         this.log.error(err);
-      })
+      }
     });
   }
 
@@ -111,10 +98,10 @@ class Server {
   // Collect Stats
   // ***************************************************************************/
   collectStats() {
-    for (let m in this.monitors) {
-      let monitor;
-      if (this.monitors.hasOwnProperty(m)) {
-        monitor = this.monitors[m];
+    const monitors = this.monitors;
+    for (const mon in monitors) {
+      if (monitors.hasOwnProperty(mon)) {
+        const monitor = this.monitors[mon];
 
         this.log.debug(`Collecting statistics for (${monitor.name} monitor)...`);
         monitor.collect();
@@ -127,14 +114,17 @@ class Server {
   // Send Stats
   // ***************************************************************************/
   sendStats() {
-    for (let m in this.monitors) {
-      let monitor = this.monitors[m];
+    const monitors = this.monitors;
+    for (const mon in monitors) {
+      if (monitors.hasOwnProperty(mon)) {
+        const monitor = this.monitors[mon];
 
-      this.log.debug(`Sending statistics (${monitor.name} monitor)...`);
-      monitor.send(this.isActive);
-      this.log.debug(`Sent statistics (${monitor.name} monitor) to ${this.config.statsd.host} as ${this.hostname}`);
+        this.log.debug(`Sending statistics (${monitor.name} monitor)...`);
+        monitor.send(this.isActive);
+        this.log.debug(`Sent statistics (${monitor.name} monitor) to ${this.config.statsd.host} as ${this.hostname}`);
 
-      monitor.clear();
+        monitor.clear();
+      }
     }
   }
 }

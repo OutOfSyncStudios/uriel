@@ -1,21 +1,14 @@
 // app/monitors/network.js
 
-let
-  _                 = require('../lib/lodashExt')
-  , os              = require('os')
-  , childProcess    = require('child_process')
-  , readline        = require('readline')
-
-  , changeCase      = require('change-case')
-  , netstat         = require('node-netstat')
-  , Monitor         = require('../lib/monitor')
-;
+let __ = require('../lib/lodashExt'),
+  childProcess = require('child_process'),
+  readline = require('readline'),
+  changeCase = require('change-case'),
+  netstat = require('node-netstat'),
+  Monitor = require('../lib/monitor');
 
 const isPlatformLinux = (process.platform === 'linux');
-const command = {
-    cmd: 'ss',
-    args: ['-tan']
-};
+const command = { cmd: 'ss', args: ['-tan'] };
 
 class NetworkMonitor extends Monitor {
   constructor(hostname, statsd, log) {
@@ -26,14 +19,15 @@ class NetworkMonitor extends Monitor {
 
   collect() {
     if (isPlatformLinux) {
-        this.collectLinux();
+      this.collectLinux();
     } else {
-        this.collectOther();
+      this.collectOther();
     }
   }
 
   collectLinux() {
-    this.getTcpStateCounts()
+    this
+      .getTcpStateCounts()
       .then((tcpStateCounts) => {
         this.setStats(tcpStateCounts);
       })
@@ -43,26 +37,30 @@ class NetworkMonitor extends Monitor {
   }
 
   collectOther() {
-    let connections = [];
+    const connections = [];
 
-    netstat({
-      filter: {
-        protocol: 'tcp'
-      },
-      done: () => {
+    netstat(
+      {
+        filter: { protocol: 'tcp' },
+        done: () => {
           const fullConnectionsStatesCount = this.getStats(connections);
           this.setStats(fullConnectionsStatesCount);
         }
       },
-      (connection) => connections.push(connection)
+      (connection) => {
+        return connections.push(connection);
+      }
     );
   }
 
   getStats(connections) {
-    let connectionsStatesCount = _.countBy(connections, 'state');
+    const connectionsStatesCount = __.countBy(connections, 'state');
 
-    for (let connectionState in connectionsStatesCount) {
-      this.connectionsStatesCountStatsd[changeCase.snakeCase(connectionState)] = connectionsStatesCount[connectionState];
+    for (const connectionState in connectionsStatesCount) {
+      if (connectionsStatesCount.hasOwnProperty(connectionState)) {
+        const snakeStr = changeCase.snakeCase(connectionState);
+        this.connectionsStatesCountStatsd[snakeStr] = connectionsStatesCount[connectionState];
+      }
     }
 
     return this.connectionsStatesCountStatsd;
@@ -76,13 +74,11 @@ class NetworkMonitor extends Monitor {
 
       const tcpStateCounts = {};
 
-      const lineReader = readline.createInterface({
-        input: proc.stdout
-      });
+      const lineReader = readline.createInterface({ input: proc.stdout });
 
       let isFirstLine = true;
 
-      lineReader.on('line', line => {
+      lineReader.on('line', (line) => {
         if (isFirstLine) {
           isFirstLine = false;
           return;
