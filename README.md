@@ -7,7 +7,7 @@
 [![Total npm module downloads](http://img.shields.io/npm/dt/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Package Quality](http://npm.packagequality.com/shield/uriel.svg)](http://packagequality.com/#?package=uriel)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chronosis/uriel&amp;utm_campaign=Badge_Grade)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&utm_medium=referral&utm_content=chronosis/uriel&utm_campaign=Badge_Coverage)
 
 
 Uriel is a NodeJS StatsD agent that pushes system, memory, cpu, network, swap, diskio, and disk usage statistics to any compatible StatsD (e.g. StatsD, Telegraf, DogStatsD) listener over UDP.
