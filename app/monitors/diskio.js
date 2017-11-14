@@ -1,6 +1,7 @@
 // app/monitors/diskio.js
 
-const si = require('systeminformation'), Monitor = require('../lib/monitor');
+const si = require('systeminformation');
+const Monitor = require('../lib/monitor');
 
 class DiskIOMonitor extends Monitor {
   constructor(hostname, statsd, log) {

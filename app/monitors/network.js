@@ -1,14 +1,8 @@
 // app/monitors/network.js
 
-const __ = require('../lib/lodashExt');
-const childProcess = require('child_process');
-const readline = require('readline');
+const si = require('systeminformation');
 const changeCase = require('change-case');
-const netstat = require('node-netstat');
 const Monitor = require('../lib/monitor');
-
-const isPlatformLinux = (process.platform === 'linux');
-const command = { cmd: 'ss', args: ['-tan'] };
 
 class NetworkMonitor extends Monitor {
   constructor(hostname, statsd, log) {
@@ -18,81 +12,32 @@ class NetworkMonitor extends Monitor {
   }
 
   collect() {
-    if (isPlatformLinux) {
-      this.collectLinux();
-    } else {
-      this.collectOther();
-    }
-  }
+    const connectionStates = {
+      foreign: 0,
+      established: 0,
+      listen: 0,
+      syn_sent: 0,
+      time_wait: 0,
+      close_wait: 0,
+      last_ack: 0
+    };
 
-  collectLinux() {
-    this
-      .getTcpStateCounts()
-      .then((tcpStateCounts) => {
-        this.setStats(tcpStateCounts);
+    si
+      .networkConnections()
+      .then((connections) => {
+        for (const data of connections) {
+          const snakeStr = changeCase.snakeCase(data.state);
+          if (connectionStates.hasOwnProperty(snakeStr)) {
+            connectionStates[snakeStr] += 1;
+          } else {
+            connectionStates[snakeStr] = 1;
+          }
+        }
+        this.setStats(connectionStates);
       })
       .catch((err) => {
         this.log.error(err.stack || err);
       });
-  }
-
-  collectOther() {
-    const connections = [];
-
-    netstat(
-      {
-        filter: { protocol: 'tcp' },
-        done: () => {
-          const fullConnectionsStatesCount = this.getStats(connections);
-          this.setStats(fullConnectionsStatesCount);
-        }
-      },
-      (connection) => {
-        return connections.push(connection);
-      }
-    );
-  }
-
-  getStats(connections) {
-    const connectionsStatesCount = __.countBy(connections, 'state');
-
-    for (const connectionState in connectionsStatesCount) {
-      if (connectionsStatesCount.hasOwnProperty(connectionState)) {
-        const snakeStr = changeCase.snakeCase(connectionState);
-        this.connectionsStatesCountStatsd[snakeStr] = connectionsStatesCount[connectionState];
-      }
-    }
-
-    return this.connectionsStatesCountStatsd;
-  }
-
-  getTcpStateCounts() {
-    return new Promise((resolve, reject) => {
-      const proc = childProcess.spawn(command.cmd, command.args);
-
-      proc.on('error', reject);
-
-      const tcpStateCounts = {};
-
-      const lineReader = readline.createInterface({ input: proc.stdout });
-
-      let isFirstLine = true;
-
-      lineReader.on('line', (line) => {
-        if (isFirstLine) {
-          isFirstLine = false;
-          return;
-        }
-        const firstSeparator = line.indexOf(' ');
-        const status = line.substr(0, firstSeparator);
-        const statusSnakeCase = changeCase.snakeCase(status);
-        tcpStateCounts[statusSnakeCase] = (tcpStateCounts[statusSnakeCase] || 0) + 1;
-      });
-
-      proc.stdout.on('close', () => {
-        resolve(tcpStateCounts);
-      });
-    });
   }
 }
 

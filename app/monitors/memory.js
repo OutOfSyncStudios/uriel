@@ -1,6 +1,7 @@
 // app/monitors/memory.js
 
-const os = require('os'), Monitor = require('../lib/monitor');
+const os = require('os');
+const Monitor = require('../lib/monitor');
 
 class MemoryMonitor extends Monitor {
   constructor(hostname, statsd, log) {

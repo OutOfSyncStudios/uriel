@@ -127,7 +127,7 @@ For all CPUs
 ### Network
  * `network.close_wait`
  * `network.estab`
- * `network.establised`
+ * `network.established`
  * `network.last_ack`
  * `network.listen`
  * `network.syn_sent`

@@ -1,8 +1,8 @@
 // app/monitors/disk.js
 
-const __ = require('../lib/lodashExt'),
-  si = require('systeminformation'),
-  Monitor = require('../lib/monitor');
+const __ = require('../lib/lodashExt');
+const si = require('systeminformation');
+const Monitor = require('../lib/monitor');
 
 class DiskMonitor extends Monitor {
   constructor(hostname, statsd, log) {
