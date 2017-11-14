@@ -1,11 +1,11 @@
 // app/monitors/network.js
 
-let __ = require('../lib/lodashExt'),
-  childProcess = require('child_process'),
-  readline = require('readline'),
-  changeCase = require('change-case'),
-  netstat = require('node-netstat'),
-  Monitor = require('../lib/monitor');
+const __ = require('../lib/lodashExt');
+const childProcess = require('child_process');
+const readline = require('readline');
+const changeCase = require('change-case');
+const netstat = require('node-netstat');
+const Monitor = require('../lib/monitor');
 
 const isPlatformLinux = (process.platform === 'linux');
 const command = { cmd: 'ss', args: ['-tan'] };
