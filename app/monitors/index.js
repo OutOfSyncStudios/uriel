@@ -1,6 +1,7 @@
 // app/monitors/index.js
 
-const fs = require('fs'), path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 const monitors = {};
 

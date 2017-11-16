@@ -1,6 +1,7 @@
 // app/monitors/system.js
 
-const os = require('os'), Monitor = require('../lib/monitor');
+const os = require('os');
+const Monitor = require('../lib/monitor');
 
 class SystemMonitor extends Monitor {
   constructor(hostname, statsd, log) {
