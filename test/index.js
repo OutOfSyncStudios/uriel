@@ -17,6 +17,10 @@ describe('uriel', () => {
     test.assert(statsd.isActive);
   });
 
+  it('sleep', (done) => {
+    setTimeout(done, 6000);
+  }).timeout(10000);
+
   it('shutdown', () => {
     statsd.close();
     test.assert(!statsd.isActive);
