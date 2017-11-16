@@ -2,6 +2,7 @@
 
 const os = require('os');
 const Monitor = require('../lib/monitor');
+const __ = require('../lib/lodashExt');
 
 class CpuMonitor extends Monitor {
   constructor(hostname, statsd, log) {
@@ -32,7 +33,7 @@ class CpuMonitor extends Monitor {
   getIntervalCpuTimes() {
     const newCpuTimes = this.getCpuTimes();
 
-    if (this.currentCpuTimes === null) {
+    if (__.isUnset(this.currentCpuTimes)) {
       this.currentCpuTimes = newCpuTimes;
       return null;
     }
