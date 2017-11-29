@@ -1,6 +1,7 @@
 # uriel
 
 [![NPM](https://nodei.co/npm/uriel.png?downloads=true)](https://nodei.co/npm/uriel/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchronosis%2Furiel.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchronosis%2Furiel?ref=badge_shield)
 
 [![Actual version published on npm](http://img.shields.io/npm/v/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Travis build status](https://travis-ci.org/chronosis/uriel.svg)](https://www.npmjs.org/package/uriel)
@@ -177,3 +178,7 @@ Shuts down the Uriel StatsD agent
 
 ## Why the name?
 The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watcher). The name was chosen both because of its association with illuminating dark places and watching things, as these concepts have overlap with systems monitoring.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchronosis%2Furiel.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchronosis%2Furiel?ref=badge_large)
