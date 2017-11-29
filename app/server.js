@@ -2,7 +2,7 @@
 
 // Dependencies
 const __ = require('./lib/lodashExt'),
-  LogStub = require('./lib/logstub'),
+  LogStub = require('logstub'),
   os = require('os'),
   StatsD = require('hot-shots');
 
