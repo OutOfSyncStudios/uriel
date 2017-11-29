@@ -39,7 +39,7 @@
     "hot-shots": "^5.0.0",
     "lodash": "^4.17.4",
     "logstub": "^1.0.0-2",
-    "moment": "^2.18.1",
+    "moment": "^2.19.3",
     "systeminformation": "^3.30.4",
     "winston": "^2.3.1"
   },
@@ -52,7 +52,7 @@
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-prettier": "^1.1.0",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.1",
     "nyc": "^11.2.1",
     "prettier": "^1.8.2",
     "unit.js": "^2.0.0"
