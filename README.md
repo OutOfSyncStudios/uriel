@@ -251,4 +251,5 @@ The following buckets are used to capture statistics:
 <a name="license"></a>
 
 Copyright (c) 2017 Jay Reardon -- Licensed under the MIT license.
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchronosis%2Furiel.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchronosis%2Furiel?ref=badge_large)
