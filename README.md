@@ -164,6 +164,11 @@ The configuration parameter expects and object that contains the following (with
     shutdownTime: 1000,
     pollingTimer: 5000
   },
+  logging: {
+    // Logging Configuration
+    logDir: './logs',
+    options: { json: false, maxsize: '10000000', maxFiles: '10', level: 'silly' }
+  },  
   statsd: {
     host: '127.0.0.1',
     port: '8125',
@@ -178,6 +183,11 @@ The configuration parameter expects and object that contains the following (with
 |---------|----|-----------|
 |**`server.shutdownTime`**|Integer|Time in millisecond to allow for graceful shutdown|
 |**`server.pollingTime`**|Integer|Time in millisecond to wait between polling the system information and delivering to statsd|
+|**`logging.logDir`**|Integer|The full or relative path (from the Uriel base folder to store logs|
+|**`logging.options.json`**|Boolean|Store Uriel service events in JSON format|
+|**`logging.options.maxsize`**|Integer String|Max logfile size in bytes before logrotation|
+|**`logging.options.maxFiles`**|Integer String|Max number of rotated logfiles to keep for logrotation|
+|**`logging.options.level`**|String|The lowest log level to store in files (silly,debug,info,warn,error)|
 |**`statsd.host`**|String|IP/Domain of the statsd server for this configuration|
 |**`statsd.port`**|Integer|UDP Port that handles the system information|
 |**`statsd.name`**|String|the `serverName` tag that is provided for all stats that are pushed. This allows info from differing servers to be distinguished from one another|

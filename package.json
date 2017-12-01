@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "fix": "gulp fix",
     "lint": "gulp lint",
     "coverage": "nyc --reporter=lcov mocha && cat ./coverage/lcov.info | codacy-coverage",
-    "pretty": "gulp pretty"
+    "pretty": "gulp pretty",
+    "config": "node ./scripts/configure.js",
+    "deconfig": "node ./scripts/deconfigure.js"
   },
   "repository": {
     "type": "git",
@@ -54,6 +56,7 @@
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-prettier": "^1.1.0",
+    "inquirer": "^4.0.1",
     "mocha": "^4.0.1",
     "nyc": "^11.2.1",
     "prettier": "^1.8.2",
