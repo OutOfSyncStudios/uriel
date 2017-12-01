@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -14,21 +14,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chronosis/uriel.git"
+    "url": "git+https://github.com/MediaXPost/uriel.git"
   },
   "keywords": [
     "statsd-agent",
     "statsd",
     "agent",
     "node",
-    "nodejs"
+    "nodejs",
+    "telegraf",
+    "DogStatsD"
   ],
   "author": "Jay Reardon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chronosis/uriel/issues"
+    "url": "https://github.com/MediaXPost/uriel/issues"
   },
-  "homepage": "https://github.com/chronosis/uriel#readme",
+  "homepage": "https://github.com/MediaXPost/uriel#readme",
   "directories": {
     "test": "test"
   },
