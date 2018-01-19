@@ -1,6 +1,6 @@
 // app/lib/monitor.js
 
-const __ = require('./lodashExt'), Statistic = require('./statistic');
+const __ = require('@mediaxpost/lodashext'), Statistic = require('./statistic');
 
 class Monitor {
   constructor(name, hostname, statsd, log) {

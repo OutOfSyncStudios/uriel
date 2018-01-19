@@ -1,7 +1,7 @@
 // app/server.js
 
 // Dependencies
-const __ = require('./lib/lodashExt'),
+const __ = require('@mediaxpost/lodashext'),
   LogStub = require('logstub'),
   os = require('os'),
   StatsD = require('hot-shots');

@@ -1,7 +1,7 @@
 // app/lib/logger.js
 
 // Dependencies
-const __ = require('./lodashExt');
+const __ = require('@mediaxpost/lodashext');
 const fs = require('fs');
 const winston = require('winston');
 
