@@ -2,7 +2,7 @@
 
 const os = require('os');
 const Monitor = require('../lib/monitor');
-const __ = require('../lib/lodashExt');
+const __ = require('@mediaxpost/lodashext');
 
 class CpuMonitor extends Monitor {
   constructor(hostname, statsd, log) {

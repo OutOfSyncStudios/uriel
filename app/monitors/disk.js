@@ -1,6 +1,6 @@
 // app/monitors/disk.js
 
-const __ = require('../lib/lodashExt');
+const __ = require('@mediaxpost/lodashext');
 const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
