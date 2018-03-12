@@ -9,7 +9,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MediaXPost/uriel&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&utm_medium=referral&utm_content=MediaXPost/uriel&utm_campaign=Badge_Coverage)
 [![Dependencies badge](https://david-dm.org/MediaXPost/uriel/status.svg)](https://david-dm.org/MediaXPost/uriel?view=list)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchronosis%2Furiel.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchronosis%2Furiel?ref=badge_shield)
 
 A simple service that pushes system information (e.g. system usage, memory, cpu, network, swap, diskio, and disk usage) to any compatible statsd service (e.g. StatsD, Telegraf, DogStatsD, etc.)
 
@@ -250,6 +249,4 @@ The following buckets are used to capture statistics:
 # [License](#license)
 <a name="license"></a>
 
-Copyright (c) 2017 Jay Reardon -- Licensed under the MIT license.
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fchronosis%2Furiel.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fchronosis%2Furiel?ref=badge_large)
+Copyright (c) 2017, 2018 Jay Reardon -- Licensed under the MIT license.
