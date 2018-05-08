@@ -1,4 +1,5 @@
-const test = require('unit.js');
+const chai = require('chai');
+const expect = chai.expect;
 const config = require('../config/config');
 
 describe('uriel', () => {
@@ -9,12 +10,12 @@ describe('uriel', () => {
     const MyModule = require('../');
     const myClass = new MyModule(config);
 
-    test.assert(myClass instanceof Uriel);
+    expect(myClass).to.be.instanceof(Uriel);
   });
 
   it('startup', () => {
     statsd.init();
-    test.assert(statsd.isActive);
+    expect(statsd.isActive).to.be.equal(true);
   });
 
   it('sleep', (done) => {
@@ -23,6 +24,6 @@ describe('uriel', () => {
 
   it('shutdown', () => {
     statsd.close();
-    test.assert(!statsd.isActive);
+    expect(!statsd.isActive).to.be.equal(true);
   });
 });
