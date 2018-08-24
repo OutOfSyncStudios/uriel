@@ -20,7 +20,11 @@ A simple service that pushes system information (e.g. system usage, memory, cpu,
               1. [Installation](#standalone-installation)
               2. [Configuration](#standalone-configuration)
               3. [Running](#standalone-running)
-          2. [Embedded Service](#embedded)
+          2. [Docker Container](#docker)
+              1. [Installation](#docker-installation)
+              2. [Configuration](#docker-configuration)
+              3. [Running](#docker-running)
+          3. [Embedded Service](#embedded)
               1. [Installation](#embedded-installation)
               2. [Usage](#embedded-usage)
               3. [API](#embedded-api)
@@ -34,23 +38,24 @@ A simple service that pushes system information (e.g. system usage, memory, cpu,
 
 The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watchers). The name was chosen both because of its association with illuminating dark places and watching things -- concepts related to system monitoring.
 
-# [Documentation](#documentation)
 <a name="documentataion"></a>
+# [Documentation](#documentation)
 
-## [Modes of Operation](#relay-modes)
 <a name="relay-modes"></a>
+## [Modes of Operation](#relay-modes)
 
-The Uriel service has two modes of operation:
+The Uriel service has three modes of operation:
   * [Stand-alone Service](#standalone)
+  * [Docker Container](#docker)
   * [Embedded Service](#embedded)
 
+  <a name="standalone"></a>
 ### [Stand-alone Service](#standalone)
-<a name="standalone"></a>
 
 The stand-alone service option is available when it is desirable to use new/existing server architecture and more control over the environment is required.
 
-#### [Installation](#standalone-installation)
 <a name="standalone-installation"></a>
+#### [Installation](#standalone-installation)
 
 To install, clone the git repository:
 
@@ -60,8 +65,8 @@ $ git clone https://github.com/MediaXPost/uriel.git
 $ cd uriel
 ```
 
-#### [Configuration](#standalone-configuration)
 <a name="standalone-configuration"></a>
+#### [Configuration](#standalone-configuration)
 
 To configure, run:
 ```shell
@@ -69,8 +74,8 @@ npm run config
 ```
 This will ask a series of questions which provides the base configuration. Alternatively, it is possible to manually edit the `<uriel-base>/config/config.js` file to make adjustments. The configuration file is an exported version of the [Configuration Object](#relay-configuration).
 
-#### [Running](#standalone-running)
 <a name="standalone-running"></a>
+#### [Running](#standalone-running)
 
 Before running, ensure that a compatible statsd service is configured to listen for events on the configured port and the any firewall rules are open between the service and the statsd service. All operations below should be performed from the Uriel base folder.
 
@@ -98,20 +103,57 @@ $ pm2 start app.js -n "Uriel" -i 1
 $ pm2 start app.js -n "Uriel" -i 1 -- -c <fullpath to config file>
 ```
 
-### [Embedded Service](#embedded)
+<a name="docker"></a>
+### [Docker Container](#docker)
+
+<a name="docker-installation"></a>
+#### [Installation](#docker-installation)
+
+To install, clone the git repository:
+
+```
+$ git clone https://github.com/MediaXPost/uriel.git
+$ cd uriel
+```
+
+<a name="docker-configuration"></a>
+#### [Configuration](#docker-configuration)
+
+To configure, run:
+```shell
+npm run config
+```
+This will ask a series of questions which provides the base configuration. Alternatively, it is possible to manually edit the `<uriel-base>/config/config.js` file to make adjustments. The configuration file is an exported version of the [Configuration Object](#relay-configuration).
+
+<a name="docker-running"></a>
+#### [Running](#docker-running)
+
+Before running, ensure that a compatible statsd service is configured to listen for events on the configured port and the any firewall rules are open between the service and the statsd service.
+
+##### Building the Docker Image
+```shell
+$ npm run docker-build
+```
+
+##### Running the Built Docker Image
+```shell
+$ npm run docker-run
+```
+
 <a name="embedded"></a>
+### [Embedded Service](#embedded)
 
 The embedded option is available if including the service bundled as a part of another service is desired.
 
-#### [Installation](#embedded-installation)
 <a name="embedded-installation"></a>
+#### [Installation](#embedded-installation)
 
 ```shell
 $ npm install uriel
 ```
 
-#### [Usage](#embedded-usage)
 <a name="embedded-usage"></a>
+#### [Usage](#embedded-usage)
 Within a library or application, add the following code:
 
 ```js
@@ -129,8 +171,8 @@ Within a library or application, add the following code:
 
 **Note:** The same considerations for firewall rules must be made when running the Uriel service in embedded mode.
 
-#### [API](#embedded-api)
 <a name="embedded-api"></a>
+#### [API](#embedded-api)
 
 ##### constructor(config[, logger])
 Create a new Uriel agent.
@@ -154,8 +196,8 @@ Shuts down the Uriel StatsD agent. Because the agent maintains an active thread,
 statsd.close();
 ```
 
-## [Configuration Object](#uriel-configuration)
 <a name="uriel-configuration"></a>
+## [Configuration Object](#uriel-configuration)
 
 The configuration parameter expects and object that contains the following (with defaults provided below):
 ```js
@@ -194,12 +236,12 @@ The configuration parameter expects and object that contains the following (with
 |**`statsd.attachHostName`**|Boolean|`true` or `false` value that specifies that the os hostname should be appended to the `serverName`|
 |**`statsd.telegraf`**|Boolean|`true` or `false` value that specifies that the listening server is running telegraf|
 
-## [Logging Object](#uriel-logging)
 <a name="relay-logging"></a>
+## [Logging Object](#uriel-logging)
 The Logging object is an instance of any logging library, such as [Winston](https://www.npmjs.com/package/winston) or [Bunyan](https://www.npmjs.com/package/bunyan), which support the `.error(...)`, `.info(...)`, `.debug(...)`, and `.log(...)` methods. When in stand-alone mode, the service will use the configuration values to create an instance of Winston.
 
-## [Statsd Buckets](#statsd-buckets)
 <a name="statsd-buckets"></a>
+## [Statsd Buckets](#statsd-buckets)
 The following buckets are used to capture statistics:
 
 |name|domain|description|
@@ -246,7 +288,7 @@ The following buckets are used to capture statistics:
 
 **Note:** CPU or Disk Usage reflect the combined usage across all CPUs or Disks.
 
-# [License](#license)
 <a name="license"></a>
+# [License](#license)
 
 Copyright (c) 2017, 2018 Jay Reardon -- Licensed under the MIT license.
