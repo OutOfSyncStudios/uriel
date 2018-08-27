@@ -13,30 +13,35 @@ class DiskMonitor extends Monitor {
     si
       .fsSize()
       .then((diskStatisticsList) => {
-        let allStatistics = {};
+        const stats = {};
         let totalUsed = 0;
         let total = 0;
 
         for (let itr = 0, jtr = diskStatisticsList.length; itr < jtr; itr++) {
+          const key = `disk${itr}`;
           const diskStatistics = diskStatisticsList[itr];
           if (__.hasValue(diskStatistics)) {
-            totalUsed += diskStatistics.used;
-            total += diskStatistics.size;
-            // const name = diskStatistics.fs;
+            const size = diskStatistics.size;
+            const used = diskStatistics.used;
+            const free = size - used;
+            totalUsed += used;
+            total += size;
+            stats[`${key}_free`] = free;
+            stats[`${key}_free_percent`] = free / size * 100;
+            stats[`${key}_total`] = total;
+            stats[`${key}_used`] = used;
+            stats[`${key}_used_percent`] = used / size * 100;
             delete diskStatistics.fs;
-            // allStatistics[name] = diskStatistics;
           }
         }
 
-        allStatistics = {
-          free: total - totalUsed,
-          free_percent: (total - totalUsed) / total * 100,
-          total: total,
-          used: totalUsed,
-          used_percent: totalUsed / total * 100
-        };
+        stats.free = total - totalUsed;
+        stats.free_percent = (total - totalUsed) / total * 100;
+        stats.total = total;
+        stats.used = totalUsed;
+        stats.used_percent = totalUsed / total * 100;
 
-        this.setStats(allStatistics);
+        this.setStats(stats);
       })
       .catch((err) => {
         this.log.error(err.stack || err);
