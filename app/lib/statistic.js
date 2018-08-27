@@ -1,6 +1,7 @@
 // app/lib/statistic.js
 
-const __ = require('@mediaxpost/lodashext'), changeCase = require('change-case');
+const __ = require('@mediaxpost/lodashext');
+const changeCase = require('change-case');
 
 class Statistic {
   constructor(statsdName, value, hostname, statsd, log, tags) {

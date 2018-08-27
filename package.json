@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "coverage": "nyc --reporter=lcov mocha && cat ./coverage/lcov.info | codacy-coverage",
     "pretty": "gulp pretty",
     "config": "node ./scripts/configure.js",
-    "deconfig": "node ./scripts/deconfigure.js"
+    "deconfig": "node ./scripts/deconfigure.js",
+    "docker-build": "docker build -t uriel .",
+    "docker-run": "docker run -d uriel"
   },
   "repository": {
     "type": "git",
