@@ -1,6 +1,6 @@
 // app/lib/statistic.js
 
-const __ = require('@mediaxpost/lodashext')
+const __ = require('@mediaxpost/lodashext');
 const changeCase = require('change-case');
 
 class Statistic {
@@ -30,7 +30,7 @@ class Statistic {
         if (error) {
           this.log.error(error.stack || error);
         } else {
-          // this.log.debug('Success');
+          this.log.debug('Success');
         }
       });
     }

@@ -31,7 +31,7 @@ class CpuMonitor extends Monitor {
       usage_total: 100 - (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2)
     };
 
-    stats['num_cpus'] = intervalCpuTimes.cpus.length;
+    stats.num_cpus = intervalCpuTimes.cpus.length;
     for (let itr = 0, jtr = intervalCpuTimes.cpus.length; itr < jtr; itr++) {
       const cpu = intervalCpuTimes.cpus[itr];
       const key = `cpu${itr}`;
