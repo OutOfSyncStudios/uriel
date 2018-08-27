@@ -293,8 +293,11 @@ The following buckets are used to capture statistics:
 
 **Note:** CPU or Disk Usage reflect the combined usage across all CPUs or Disks.
 
-<a name=changelog"></a>
+<a name="changelog"></a>
 # [Changelog](#changelog)
+
+## 1.8.1
+* Fixing console logging bug
 
 ## 1.8.0
 * Added Docker support
