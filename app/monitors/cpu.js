@@ -60,7 +60,6 @@ class CpuMonitor extends Monitor {
       this.currentCpuTimes = newCpuTimes;
       return null;
     }
-    console.log(newCpuTimes);
     const intervalCpuTimes = {
       user: newCpuTimes.user - this.currentCpuTimes.user,
       nice: newCpuTimes.nice - this.currentCpuTimes.nice,
