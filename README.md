@@ -31,7 +31,8 @@ A simple service that pushes system information (e.g. system usage, memory, cpu,
       2. [Configuration Object](#uriel-configuration)
       3. [Logging Object](#uriel-logging)
       4. [Statsd Buckets](#statsd-buckets)
-  2. [License](#license)
+  2. [Changelog](#changelog)
+  3. [License](#license)
 
 # Goals
 **`Uriel`** is designed to be a lightweight NodeJS agent that gathers system information and delivers it to a compatible statsd service over UDP. It can be embedded within another service, or setup and configured as its own stand-alone service that runs on the system being monitored. At the time of creation, other NodeJS systeminfo agents were unsuitable due to their inflexibility or poor implementations. Uriel was created to (ideally) bridge those shortcomings. It uses UDP, because of the decreased network overhead that is required in comparison to TCP.
@@ -256,6 +257,8 @@ The following buckets are used to capture statistics:
 |**`cpu.usage_idle`**|CPU|% of CPU idle|
 |**`cpu.usage_irq`**|CPU|% of CPU usage from system IRQs|
 |**`cpu.usage_total`**|CPU|% of non-idle CPU usage|
+|**`cpu.cpu(#)_...`**|CPU|Same stats as above, but for the individually # cpu|
+|**`cpu.num_cpus`**|CPU|Count of CPUs on the system|
 |**`mem.free`**|Memory|Free Memory (in bytes)|
 |**`mem.free_percent`**|Memory|% of Free Memory|
 |**`mem.total`**|Memory|Total Memory (in bytes)|
@@ -280,6 +283,8 @@ The following buckets are used to capture statistics:
 |**`disk.total`**|Disk Usage|Total Disk (in bytes)|
 |**`disk.used`**|Disk Usage|Used Disk (in bytes)|
 |**`disk.used_percent`**|Disk Usage|% of Used Disk|
+|**`disk.disk(#)_...`**|Disk Usage|Same stats as above but for the individually numbered disk|
+|**`disk.num_disks`**|Disk Usage|Count of Disks in the system|
 |**`swap.free`**|Swap Usage|Free Swap (in bytes)|
 |**`swap.free_percent`**|Swap Usage|% of Free Swap|
 |**`swap.total`**|Swap Usage|Total Swap (in bytes)|
@@ -287,6 +292,16 @@ The following buckets are used to capture statistics:
 |**`swap.used_percent`**|Swap Usage|% of Used Swap|
 
 **Note:** CPU or Disk Usage reflect the combined usage across all CPUs or Disks.
+
+<a name=changelog"></a>
+# [Changelog](#changelog)
+
+## 1.8.0
+* Added Docker support
+* Added individual CPU and Disk reporting
+
+## 1.7.0
+* Fixed all outdated dependencies and security vulnerabilities
 
 <a name="license"></a>
 # [License](#license)
