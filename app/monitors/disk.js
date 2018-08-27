@@ -16,7 +16,8 @@ class DiskMonitor extends Monitor {
         const stats = {};
         let totalUsed = 0;
         let total = 0;
-
+        let count = 0;
+        
         for (let itr = 0, jtr = diskStatisticsList.length; itr < jtr; itr++) {
           const key = `disk${itr}`;
           const diskStatistics = diskStatisticsList[itr];
@@ -31,9 +32,12 @@ class DiskMonitor extends Monitor {
             stats[`${key}_total`] = total;
             stats[`${key}_used`] = used;
             stats[`${key}_used_percent`] = used / size * 100;
+            count += 1;
             delete diskStatistics.fs;
           }
         }
+
+        stats.num_disks = count;
 
         stats.free = total - totalUsed;
         stats.free_percent = (total - totalUsed) / total * 100;
