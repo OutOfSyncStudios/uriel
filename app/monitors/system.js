@@ -4,8 +4,8 @@ const os = require('os');
 const Monitor = require('../lib/monitor');
 
 class SystemMonitor extends Monitor {
-  constructor(hostname, statsd, log) {
-    super('system', hostname, statsd, log);
+  constructor(hostname, statsd, log, tags) {
+    super('system', hostname, statsd, log, tags);
   }
 
   collect() {

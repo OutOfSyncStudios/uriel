@@ -16,7 +16,7 @@ class Server {
   constructor(config, log) {
     const defaults = {
       server: { shutdownTime: 1000, pollingTimer: 5000 },
-      statsd: { host: '127.0.0.1', port: '8125', name: 'Uriel', attachHostName: false, telegraf: false }
+      statsd: { host: '127.0.0.1', port: '8125', name: 'Uriel', attachHostName: false, telegraf: false, tags: [] }
     };
     const osHost = os.hostname();
 
@@ -24,6 +24,10 @@ class Server {
     this.log = log || new LogStub();
     this.config = __.merge(defaults, config || {});
     this.hostname = config.statsd.name || osHost;
+    this.tags = [];
+    if (Array.isArray(config.statsd.tags)) {
+      this.tags = config.statsd.tags;
+    }
 
     if (this.config.statsd.attachHostName && this.hostname !== osHost) {
       this.hostname = `${this.hostname}_${osHost}`;
@@ -62,7 +66,7 @@ class Server {
   init() {
     this.isActive = true;
     this.setupConnection();
-    this.monitors = require('./monitors')(this.hostname, this.statsd, this.log);
+    this.monitors = require('./monitors')(this.hostname, this.statsd, this.log, this.tags);
 
     // call setInterval for polling
     this.log.info(`Running polling every ${this.config.server.pollingTimer}ms...`);
