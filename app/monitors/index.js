@@ -13,7 +13,7 @@ const monitors = {};
  * The `monitorr` object is returned to the paired `require('thisLib')` statement
  * inside the host code.
  */
-module.exports = (hostname, statsd, log) => {
+module.exports = (hostname, statsd, log, tags) => {
   log.debug(' - Loading Monitor - ');
   fs
     .readdirSync(__dirname)
@@ -23,7 +23,7 @@ module.exports = (hostname, statsd, log) => {
     .forEach((file) => {
       const ProxyClass = require(path.join(__dirname, file));
       log.debug(`Loading monitor: '${ProxyClass.name}'`);
-      monitors[ProxyClass.name] = new ProxyClass(hostname, statsd, log);
+      monitors[ProxyClass.name] = new ProxyClass(hostname, statsd, log, tags);
     });
   return monitors;
 };

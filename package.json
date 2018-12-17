@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -42,26 +42,26 @@
     "@mediaxpost/lodashext": "^1.2.0",
     "chalk": "^2.4.1",
     "change-case": "^3.0.2",
-    "commander": "^2.17.1",
-    "hot-shots": "^5.9.0",
-    "inquirer": "^5.2.0",
-    "logstub": "^1.2.0",
-    "moment": "^2.22.2",
-    "systeminformation": "^3.42.9",
-    "winston": "^2.4.3"
+    "commander": "^2.19.0",
+    "hot-shots": "^5.9.2",
+    "inquirer": "^6.2.1",
+    "logstub": "^1.2.1",
+    "moment": "^2.23.0",
+    "systeminformation": "^3.52.2",
+    "winston": "^2.4.4"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "codacy-coverage": "^2.1.1",
-    "eslint": "^4.19.1",
+    "chai": "^4.2.0",
+    "codacy-coverage": "^3.3.0",
+    "eslint": "^5.10.0",
     "gulp": "^4.0.0",
-    "gulp-eslint": "^4.0.2",
-    "gulp-mocha": "^5.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-mocha": "^6.0.0",
     "gulp-notify": "^3.2.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-prettier": "^1.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-prettier": "^2.0.0",
     "mocha": "^5.2.0",
-    "nyc": "^11.9.0",
-    "prettier": "^1.14.2"
+    "nyc": "^13.1.0",
+    "prettier": "^1.15.3"
   }
 }

@@ -5,8 +5,8 @@ const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
 class DiskMonitor extends Monitor {
-  constructor(hostname, statsd, log) {
-    super('disk', hostname, statsd, log);
+  constructor(hostname, statsd, log, tags) {
+    super('disk', hostname, statsd, log, tags);
   }
 
   collect() {
@@ -17,7 +17,7 @@ class DiskMonitor extends Monitor {
         let totalUsed = 0;
         let total = 0;
         let count = 0;
-        
+
         for (let itr = 0, jtr = diskStatisticsList.length; itr < jtr; itr++) {
           const key = `disk${itr}`;
           const diskStatistics = diskStatisticsList[itr];

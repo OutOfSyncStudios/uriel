@@ -5,8 +5,8 @@ const changeCase = require('change-case');
 const Monitor = require('../lib/monitor');
 
 class NetworkMonitor extends Monitor {
-  constructor(hostname, statsd, log) {
-    super('network', hostname, statsd, log);
+  constructor(hostname, statsd, log, tags) {
+    super('network', hostname, statsd, log, tags);
 
     this.connectionsStatesCountStatsd = {};
   }

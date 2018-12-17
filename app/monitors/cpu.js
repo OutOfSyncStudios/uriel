@@ -5,8 +5,8 @@ const Monitor = require('../lib/monitor');
 const __ = require('@mediaxpost/lodashext');
 
 class CpuMonitor extends Monitor {
-  constructor(hostname, statsd, log) {
-    super('cpu', hostname, statsd, log);
+  constructor(hostname, statsd, log, tags) {
+    super('cpu', hostname, statsd, log, tags);
   }
 
   collect() {
@@ -60,7 +60,6 @@ class CpuMonitor extends Monitor {
       this.currentCpuTimes = newCpuTimes;
       return null;
     }
-    console.log(newCpuTimes);
     const intervalCpuTimes = {
       user: newCpuTimes.user - this.currentCpuTimes.user,
       nice: newCpuTimes.nice - this.currentCpuTimes.nice,

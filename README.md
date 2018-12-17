@@ -217,7 +217,8 @@ The configuration parameter expects and object that contains the following (with
     port: '8125',
     name: 'Uriel',
     attachHostName: false,
-    telegraf: false
+    telegraf: false,
+    tags: []
   }
 }
 ```
@@ -236,6 +237,7 @@ The configuration parameter expects and object that contains the following (with
 |**`statsd.name`**|String|the `serverName` tag that is provided for all stats that are pushed. This allows info from differing servers to be distinguished from one another|
 |**`statsd.attachHostName`**|Boolean|`true` or `false` value that specifies that the os hostname should be appended to the `serverName`|
 |**`statsd.telegraf`**|Boolean|`true` or `false` value that specifies that the listening server is running telegraf|
+|**`statsd.tags`**|Array<string>|An array of tag strings formatted `key:value` that are passed onto the statsd server
 
 <a name="relay-logging"></a>
 ## [Logging Object](#uriel-logging)
@@ -293,8 +295,15 @@ The following buckets are used to capture statistics:
 
 **Note:** CPU or Disk Usage reflect the combined usage across all CPUs or Disks.
 
-<a name=changelog"></a>
+<a name="changelog"></a>
 # [Changelog](#changelog)
+
+## 1.9.0
+* Moved some logging messages to `silly` level logging.
+* Added `tags` configuration array so that other metrics may be hard passed to statsd
+
+## 1.8.1
+* Fixing console logging bug
 
 ## 1.8.0
 * Added Docker support
