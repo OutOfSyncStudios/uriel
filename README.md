@@ -298,6 +298,9 @@ The following buckets are used to capture statistics:
 <a name="changelog"></a>
 # [Changelog](#changelog)
 
+## 1.9.1
+* Fixed bug causing excessive CPU usage when Uriel had been running for a while
+
 ## 1.9.0
 * Moved some logging messages to `silly` level logging.
 * Added `tags` configuration array so that other metrics may be hard passed to statsd
