@@ -15,15 +15,10 @@ class Monitor {
     }
   }
 
-  setStats(obj, tags) {
+  setStats(obj) {
     this.log.silly(`[${this.name}] Setting statistics`);
-    if (Array.isArray(tags)) {
-      tags = [...this.tags, ...tags];
-    } else {
-      tags = this.tags;
-    }
     this.statistics = __.toPairs(obj).map((pair) => {
-      return new Statistic(`${this.name}.${pair[0]}`, pair[1], this.hostname, this.statsd, this.log, tags);
+      return new Statistic(`${this.name}.${pair[0]}`, pair[1], this.hostname, this.statsd, this.log, this.tags);
     });
   }
 

@@ -1,7 +1,7 @@
 {
   "server": {
     "shutdownTime": 1000,
-    "pollingTimer": 5000
+    "pollingTimer": 10000
   },
   "logging": {
     "logDir": "./logs",
