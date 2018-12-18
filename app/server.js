@@ -106,10 +106,10 @@ class Server {
     for (const mon in monitors) {
       if (monitors.hasOwnProperty(mon)) {
         const monitor = this.monitors[mon];
-
-        this.log.debug(`Collecting statistics for (${monitor.name} monitor)...`);
+        const str = ' statistics for (' + monitor.name + ' monitor)...';
+        this.log.debug('Collecting' + str);
         monitor.collect();
-        this.log.debug(`Collected statistics for (${monitor.name} monitor)...`);
+        this.log.debug('Collected' + str);
       }
     }
   }
@@ -122,11 +122,11 @@ class Server {
     for (const mon in monitors) {
       if (monitors.hasOwnProperty(mon)) {
         const monitor = this.monitors[mon];
-
-        this.log.debug(`Sending statistics (${monitor.name} monitor)...`);
+        const str = ' statistics for (' + monitor.name + ' monitor)';
+        const postStr = ' to ' + this.config.statsd.host + ' as ' + this.hostname;
+        this.log.debug('Sending' + str + '...');
         monitor.send(this.isActive);
-        this.log.debug(`Sent statistics (${monitor.name} monitor) to ${this.config.statsd.host} as ${this.hostname}`);
-
+        this.log.debug('Sent' + str + postStr);
         monitor.clear();
       }
     }
