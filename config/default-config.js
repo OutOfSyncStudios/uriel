@@ -1,5 +1,5 @@
 module.exports = {
-  server: { shutdownTime: 1000, pollingTimer: 5000 },
+  server: { shutdownTime: 1000, pollingTimer: 10000 },
   logging: {
     // Logging Configuration
     logDir: './logs',
