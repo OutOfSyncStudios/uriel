@@ -298,6 +298,9 @@ The following buckets are used to capture statistics:
 <a name="changelog"></a>
 # [Changelog](#changelog)
 
+## 1.9.2
+* Additional optimization of the inner monitoring loop
+
 ## 1.9.1
 * Fixed bug causing excessive CPU usage when Uriel had been running for a while
 
