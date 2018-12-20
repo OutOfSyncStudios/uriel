@@ -298,8 +298,11 @@ The following buckets are used to capture statistics:
 <a name="changelog"></a>
 # [Changelog](#changelog)
 
+## 1.9.4
+* Reverting hot-shots and systeminformation version to previous version in 1.8 branch as fix for the CPU race condition that is still being reported
+
 ## 1.9.3
-* Reverting systeminformation dependency to version 3.51 -- the Physical CPU gathing logic added added in 3.52 causes major issues with cpu usage overhead
+* Reverting systeminformation dependency to version 3.51 -- the Physical CPU gathering logic added added in 3.52 causes major issues with cpu usage overhead
 
 ## 1.9.2
 * Additional optimization of the inner monitoring loop
