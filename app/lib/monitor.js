@@ -11,7 +11,8 @@ class Monitor {
     this.statistics = [];
     this.tags = [];
     if (Array.isArray(tags)) {
-      this.tags = tags;
+      // Make a copy of the tags array (the original array should remain immutable)
+      this.tags = Object.assign([], tags);
     }
   }
 

@@ -14,11 +14,14 @@ class Statistic {
       .join('.');
     this.value = value;
     this.hostname = hostname || 'localhost';
-    this.tags = tags || [];
-    if (!Array.isArray(this.tags)) {
-      this.tags = [this.tags];
+    if (!tags) {
+      this.tags = [];
+    } else if (Array.isArray(tags)) {
+      // Make a copy of the tags array (the original array should remain immutable)
+      this.tags = Object.assign([], tags);
+    } else {
+      this.tags = [tags];
     }
-
     this.tags.push('serverName:' + this.hostname);
   }
 
