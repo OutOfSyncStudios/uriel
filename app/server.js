@@ -26,7 +26,7 @@ class Server {
     this.hostname = config.statsd.name || osHost;
     this.tags = [];
     if (Array.isArray(config.statsd.tags)) {
-      this.tags = config.statsd.tags;
+      this.tags = Object.assign([], config.statsd.tags);
     }
 
     if (this.config.statsd.attachHostName && this.hostname !== osHost) {
