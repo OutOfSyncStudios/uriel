@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -43,11 +43,11 @@
     "chalk": "^2.4.1",
     "change-case": "^3.0.2",
     "commander": "^2.19.0",
-    "hot-shots": "^6.0.1",
+    "hot-shots": "^5.9.0",
     "inquirer": "^6.2.1",
     "logstub": "^1.2.1",
     "moment": "^2.23.0",
-    "systeminformation": "^3.51.4",
+    "systeminformation": "^3.44.2",
     "winston": "^2.4.4"
   },
   "devDependencies": {
