@@ -22,6 +22,10 @@ describe('uriel', () => {
     setTimeout(done, 6000);
   }).timeout(10000);
 
+  it('check that tags array has remained immutable', () => {
+    expect(statsd.tags.length).to.be.equal(0);
+  });
+
   it('shutdown', () => {
     statsd.close();
     expect(!statsd.isActive).to.be.equal(true);
