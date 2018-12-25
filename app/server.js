@@ -1,10 +1,11 @@
 // app/server.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext'),
-  LogStub = require('logstub'),
-  os = require('os'),
-  StatsD = require('hot-shots');
+const __ = require('@mediaxpost/lodashext');
+const LogStub = require('logstub');
+const os = require('os');
+const StatsD = require('hot-shots');
+const StatsFactory = require('./lib/statsFactory');
 
 // const server = {};
 
@@ -39,6 +40,7 @@ class Server {
     this.isActive = false;
     this.monitors = {};
     this.timer = null;
+    this.statsFactory = {};
   }
 
   // ****************************************************************************
@@ -66,7 +68,7 @@ class Server {
   init() {
     this.isActive = true;
     this.setupConnection();
-    this.monitors = require('./monitors')(this.hostname, this.statsd, this.log, this.tags);
+    this.monitors = require('./monitors')(this.statsFactory);
 
     // call setInterval for polling
     this.log.info(`Running polling every ${this.config.server.pollingTimer}ms...`);
@@ -87,6 +89,7 @@ class Server {
         this.log.error(err);
       }
     });
+    this.statsFactory = new StatsFactory(this.hostname, this.statsd, this.tags, this.log);
   }
 
   // ****************************************************************************

@@ -5,8 +5,8 @@ const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
 class DiskMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('disk', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('disk', statsFactory);
   }
 
   collect() {

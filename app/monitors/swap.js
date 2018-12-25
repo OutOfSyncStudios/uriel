@@ -4,8 +4,8 @@ const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
 class SwapMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('swap', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('swap', statsFactory);
   }
 
   collect() {

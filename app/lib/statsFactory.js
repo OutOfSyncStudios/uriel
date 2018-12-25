@@ -30,7 +30,7 @@ class StatsFactory {
     };
   }
 
-  send(collection) {
+  send(collection, addedTags) {
     if (!Array.isArray(collection)) {
       if (typeof collection !== 'object') {
         throw new Error('Can not send a value')
@@ -38,6 +38,12 @@ class StatsFactory {
         collection = [collection];
       }
     }
+
+    const tempTags = Object.assign([], this.tags);
+    if (Array.isArray(addedTags)) {
+      tempTags = [...tags, ...addedTags];
+    }
+
     // Only send if the statsd connection has not been shut down
     if (__.hasValue(this.statsd)) {
       for (let itr = 0, jtr = collection.length; itr < jtr; itr++) {
@@ -48,7 +54,7 @@ class StatsFactory {
           continue;
         }
 
-        this.statsd.gauge(stat.name, stat.value, this.tags, (error) => {
+        this.statsd.gauge(stat.name, stat.value, tempTags, (error) => {
           if (error) {
             this.log.error(error.stack || error);
           } else {
@@ -59,3 +65,5 @@ class StatsFactory {
     }
   }
 }
+
+module.exports = StatsFactory;

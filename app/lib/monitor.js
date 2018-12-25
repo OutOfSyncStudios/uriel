@@ -3,24 +3,18 @@ const __ = require('@mediaxpost/lodashext');
 const Statistic = require('./statistic');
 
 class Monitor {
-  constructor(name, hostname, statsd, log, tags) {
+  constructor(name, statsFactory) {
     this.name = name;
-    this.hostname = hostname;
-    this.statsd = statsd;
-    this.log = log;
+    this.statsFactory = statsFactory;
     this.statistics = [];
-    this.tags = [];
-    if (Array.isArray(tags)) {
-      // Make a copy of the tags array (the original array should remain immutable)
-      this.tags = Object.assign([], tags);
-    }
+    this.log = this.statsFactory.log;
   }
 
   setStats(obj) {
     this.log.silly(`[${this.name}] Setting statistics`);
     this.statistics = __.toPairs(obj).map((pair) => {
       let name = this.name + '.' + pair[0];
-      return new Statistic(name, pair[1], this.hostname, this.statsd, this.log, this.tags);
+      return this.statsFactory.create(name, pair[1]);
     });
   }
 
@@ -28,12 +22,7 @@ class Monitor {
     // Only send if the server is still active and not shutting down
     if (isActive) {
       this.log.silly(`[${this.name}] Sending statistics`);
-
-      const statistics = this.statistics;
-      for (let itr = 0, jtr = statistics.length; itr < jtr; itr++) {
-        const stat = statistics[itr];
-        stat.send();
-      }
+      this.statsFactory.send(this.statistics);
     }
   }
 

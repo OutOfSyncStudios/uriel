@@ -5,8 +5,8 @@ const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
 class NetworkMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('network', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('network', statsFactory);
 
     this.connectionsStatesCountStatsd = {};
   }

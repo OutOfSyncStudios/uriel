@@ -4,8 +4,8 @@ const os = require('os');
 const Monitor = require('../lib/monitor');
 
 class MemoryMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('mem', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('mem', statsFactory);
   }
 
   collect() {
