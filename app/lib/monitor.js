@@ -1,6 +1,6 @@
 // app/lib/monitor.js
-
-const __ = require('@mediaxpost/lodashext'), Statistic = require('./statistic');
+const __ = require('@mediaxpost/lodashext');
+const Statistic = require('./statistic');
 
 class Monitor {
   constructor(name, hostname, statsd, log, tags) {
@@ -17,7 +17,7 @@ class Monitor {
   }
 
   setStats(obj) {
-    // this.log.silly(`[${this.name}] Setting statistics`);
+    this.log.silly(`[${this.name}] Setting statistics`);
     this.statistics = __.toPairs(obj).map((pair) => {
       let name = this.name + '.' + pair[0];
       return new Statistic(name, pair[1], this.hostname, this.statsd, this.log, this.tags);
@@ -27,7 +27,7 @@ class Monitor {
   send(isActive) {
     // Only send if the server is still active and not shutting down
     if (isActive) {
-      // this.log.silly(`[${this.name}] Sending statistics`);
+      this.log.silly(`[${this.name}] Sending statistics`);
 
       const statistics = this.statistics;
       for (let itr = 0, jtr = statistics.length; itr < jtr; itr++) {
