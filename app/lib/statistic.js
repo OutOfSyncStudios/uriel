@@ -1,7 +1,6 @@
 // app/lib/statistic.js
 
 const __ = require('@mediaxpost/lodashext');
-const changeCase = require('change-case');
 
 class Statistic {
   constructor(statsdName, value, hostname, statsd, log, tags) {
@@ -9,7 +8,7 @@ class Statistic {
     this.statsd = statsd;
     this.statsdName = statsdName.split('.')
       .map((str) => {
-        return changeCase.snakeCase(str);
+        return __.snakeCase(str);
       })
       .join('.');
     this.value = value;
@@ -28,12 +27,12 @@ class Statistic {
   send() {
     // Only send if the statsd connection has not been shut down
     if (__.hasValue(this.statsd)) {
-      // this.log.silly('Sending statistic %s = %d', this.statsdName, this.value);
+      this.log.silly('Sending statistic %s = %d', this.statsdName, this.value);
       this.statsd.gauge(this.statsdName, this.value, this.tags, (error) => {
         if (error) {
           this.log.error(error.stack || error);
         } else {
-          // this.log.silly('Success');
+          this.log.silly('Success');
         }
       });
     }

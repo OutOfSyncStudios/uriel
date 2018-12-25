@@ -1,7 +1,7 @@
 // app/monitors/network.js
 
+const __ = require('@mediaxpost/lodashext');
 const si = require('systeminformation');
-const changeCase = require('change-case');
 const Monitor = require('../lib/monitor');
 
 class NetworkMonitor extends Monitor {
@@ -26,7 +26,7 @@ class NetworkMonitor extends Monitor {
       .networkConnections()
       .then((connections) => {
         for (const data of connections) {
-          const snakeStr = changeCase.snakeCase(data.state);
+          const snakeStr = __.snakeCase(data.state);
           if (connectionStates.hasOwnProperty(snakeStr)) {
             connectionStates[snakeStr] += 1;
           } else {

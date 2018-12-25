@@ -298,6 +298,16 @@ The following buckets are used to capture statistics:
 <a name="changelog"></a>
 # [Changelog](#changelog)
 
+## 1.9.6
+* Updating outdated dependencies again
+* Additional improved logging
+* Removed unnecessary dependencies
+
+## 1.9.5
+* Finally fixed CPU / Memory leak causing CPU panic
+* Improved Logging
+* Improved Unit Testing to check for the fixed bug
+
 ## 1.9.4
 * Reverting hot-shots and systeminformation version to previous version in 1.8 branch as fix for the CPU race condition that is still being reported
 
