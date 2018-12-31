@@ -1,6 +1,5 @@
 // app/lib/monitor.js
 const __ = require('@mediaxpost/lodashext');
-const Statistic = require('./statistic');
 
 class Monitor {
   constructor(name, statsFactory) {
@@ -26,8 +25,31 @@ class Monitor {
     }
   }
 
+  sendPromise(isActive) {
+    return new Promise((resolve) => {
+      resolve(this.send(isActive));
+    });
+  }
+
   clear() {
     this.statistics = [];
+  }
+
+  clearPromise() {
+    return new Promise((resolve) => {
+      resolve(this.clear());
+    });
+  }
+
+  collect() {
+    // Do Nothing.. this is for override reasons
+    return;
+  }
+
+  collectPromise() {
+    return new Promise((resolve) => {
+      resolve(this.collect());
+    });
   }
 }
 

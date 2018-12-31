@@ -17,17 +17,23 @@ class StatsFactory {
     this.tags.push('serverName:' + this.hostname);
   }
 
-  create(name, value) {
+  create(name, value, tags) {
     name = name.split('.')
       .map((str) => {
         return __.snakeCase(str);
       })
       .join('.');
 
-    return {
+    const retVal = {
       name: name,
       value: value
     };
+
+    if (tags && Array.isArray(tags)) {
+      retVal.tags = tags;
+    }
+
+    return retVal;
   }
 
   send(collection, addedTags) {

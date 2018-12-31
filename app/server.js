@@ -97,42 +97,39 @@ class Server {
   // ***************************************************************************/
   runStats() {
     this.log.debug('Running Information Polling');
-    this.collectStats();
-    this.sendStats();
+    this.statsLoop()
+      .then(() => {
+        this.log.debug('Complete Polling');
+      })
+      .catch((err) => {
+        this.log.error(err.message || err);
+      });
   }
 
   // ****************************************************************************
-  // Collect Stats
+  // Collecting and Sending Stats
   // ***************************************************************************/
-  collectStats() {
+  statsLoop() {
+    const promiseArray = [];
     const monitors = this.monitors;
     for (const mon in monitors) {
       if (monitors.hasOwnProperty(mon)) {
         const monitor = this.monitors[mon];
-        const str = ' statistics for (' + monitor.name + ' monitor)...';
-        this.log.debug('Collecting' + str);
-        monitor.collect();
-        this.log.debug('Collected' + str);
+        const str = '(' + monitor.name + ' monitor)...';
+        this.log.debug('Collecting ' + str);
+        let prm = monitor.collectPromise()
+          .then(() => {
+            this.log.debug('Sending ' + str);
+            return monitor.sendPromise(this.isActive);
+          })
+          .then(() => {
+            this.log.debug('Updating ' + str);
+            return monitor.clearPromise();
+          });
+        promiseArray.push(prm);
       }
     }
-  }
-
-  // ****************************************************************************
-  // Send Stats
-  // ***************************************************************************/
-  sendStats() {
-    const monitors = this.monitors;
-    for (const mon in monitors) {
-      if (monitors.hasOwnProperty(mon)) {
-        const monitor = this.monitors[mon];
-        const str = ' statistics for (' + monitor.name + ' monitor)';
-        const postStr = ' to ' + this.config.statsd.host + ' as ' + this.hostname;
-        this.log.debug('Sending' + str + '...');
-        monitor.send(this.isActive);
-        this.log.debug('Sent' + str + postStr);
-        monitor.clear();
-      }
-    }
+    return Promise.all(promiseArray);
   }
 }
 
