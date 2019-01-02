@@ -46,13 +46,13 @@
     "inquirer": "^6.2.1",
     "logstub": "^1.2.1",
     "moment": "^2.23.0",
-    "systeminformation": "^3.52.2",
-    "winston": "^2.4.4"
+    "systeminformation": "^3.54.0",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "codacy-coverage": "^3.3.0",
-    "eslint": "^5.11.0",
+    "codacy-coverage": "^3.4.0",
+    "eslint": "^5.11.1",
     "gulp": "^4.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-mocha": "^6.0.0",
