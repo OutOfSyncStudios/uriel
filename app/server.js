@@ -117,7 +117,7 @@ class Server {
         const monitor = this.monitors[mon];
         const str = '(' + monitor.name + ' monitor)...';
         this.log.debug('Collecting ' + str);
-        let prm = monitor.collectPromise()
+        const prm = monitor.collectPromise()
           .then(() => {
             this.log.debug('Sending ' + str);
             return monitor.sendPromise(this.isActive);
