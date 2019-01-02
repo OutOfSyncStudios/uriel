@@ -12,13 +12,13 @@ class MemoryMonitor extends Monitor {
     const freemem = os.freemem();
     const totalmem = os.totalmem();
 
-    this.setStats({
+    this.setStats(this.bundleStats({
       free: freemem,
       free_percent: freemem / totalmem * 100,
       total: totalmem,
       used: totalmem - freemem,
       used_percent: (totalmem - freemem) / totalmem * 100
-    });
+    }));
   }
 }
 

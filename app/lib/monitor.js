@@ -9,12 +9,29 @@ class Monitor {
     this.log = this.statsFactory.log;
   }
 
-  setStats(obj) {
+  bundleStats(stats, tags) {
+    tags = tags || [];
+    return {
+      value: stats,
+      tags: tags
+    };
+  }
+
+  setStats(objArr) {
     this.log.silly(`[${this.name}] Setting statistics`);
-    this.statistics = __.toPairs(obj).map((pair) => {
-      let name = this.name + '.' + pair[0];
-      return this.statsFactory.create(name, pair[1]);
-    });
+    if (!Array.isArray(objArr)) {
+      objArr = [ objArr ];
+    }
+    this.statistics = [];
+    for (let itr = 0, itrTest = objArr.length; itr < itrTest; itr++) {
+      const obj = objArr[itr];
+      const tempStats = __.toPairs(obj.value).map((pair) => {
+        let name = this.name + '.' + pair[0];
+        let val = pair[1];
+        return this.statsFactory.create(name, val, obj.tags);
+      });
+      this.statistics = this.statistics.concat(tempStats);
+    }
   }
 
   send(isActive) {

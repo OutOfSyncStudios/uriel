@@ -33,7 +33,7 @@ class NetworkMonitor extends Monitor {
             connectionStates[snakeStr] = 1;
           }
         }
-        this.setStats(connectionStates);
+        this.setStats(this.bundleStats(connectionStates));
       })
       .catch((err) => {
         this.log.error(err.stack || err);

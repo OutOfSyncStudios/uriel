@@ -13,13 +13,13 @@ class DiskMonitor extends Monitor {
     si
       .fsSize()
       .then((diskStatisticsList) => {
-        const stats = {};
+        const allStats = [];
         let totalUsed = 0;
         let total = 0;
         let count = 0;
 
         for (let itr = 0, jtr = diskStatisticsList.length; itr < jtr; itr++) {
-          const key = `disk${itr}`;
+          const tags = [`disk:${itr}`];
           const diskStatistics = diskStatisticsList[itr];
           if (__.hasValue(diskStatistics)) {
             const size = diskStatistics.size;
@@ -27,25 +27,30 @@ class DiskMonitor extends Monitor {
             const free = size - used;
             totalUsed += used;
             total += size;
-            stats[`${key}_free`] = free;
-            stats[`${key}_free_percent`] = free / size * 100;
-            stats[`${key}_total`] = total;
-            stats[`${key}_used`] = used;
-            stats[`${key}_used_percent`] = used / size * 100;
-            count += 1;
+            count++;
+            const diskStats = {
+              free: free,
+              free_percent: free / size * 100,
+              total: total,
+              used: used,
+              used_percent: used / size * 100
+            };
+            allStats.push(this.bundleStats(diskStats, tags));
             delete diskStatistics.fs;
           }
         }
 
-        stats.num_disks = count;
+        const stats = {
+          free: total - totalUsed,
+          free_percent: (total - totalUsed) / total * 100,
+          total: total,
+          used: totalUsed,
+          used_percent: totalUsed / total * 100,
+          num_disks: count
+        };
+        allStats.push(this.bundleStats(stats, ['disk:total']));
 
-        stats.free = total - totalUsed;
-        stats.free_percent = (total - totalUsed) / total * 100;
-        stats.total = total;
-        stats.used = totalUsed;
-        stats.used_percent = totalUsed / total * 100;
-
-        this.setStats(stats);
+        this.setStats(allStats);
       })
       .catch((err) => {
         this.log.error(err.stack || err);

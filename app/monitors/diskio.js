@@ -12,7 +12,7 @@ class DiskIOMonitor extends Monitor {
     si
       .disksIO()
       .then((data) => {
-        this.setStats({
+        this.setStats(this.bundleStats({
           io_time: data.ms,
           iops_in_progress: data.tIO,
           weighted_io_time: data.tIO_sec,
@@ -20,7 +20,7 @@ class DiskIOMonitor extends Monitor {
           read_time: data.rIO_sec,
           write_bytes: data.wIO,
           write_time: data.wIO_sec
-        });
+        }));
       })
       .catch((err) => {
         this.log.error(err.stack || err);
