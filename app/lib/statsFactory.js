@@ -37,7 +37,7 @@ class StatsFactory {
   send(collection) {
     if (!Array.isArray(collection)) {
       if (typeof collection !== 'object') {
-        throw new Error('Can not send a value')
+        throw new Error('Can not send a value');
       } else {
         collection = [collection];
       }
@@ -47,7 +47,7 @@ class StatsFactory {
     if (__.hasValue(this.statsd)) {
       for (let itr = 0, jtr = collection.length; itr < jtr; itr++) {
         let tempTags = Object.assign([], this.tags);
-        let stat = collection[itr]
+        const stat = collection[itr];
         this.log.silly('Sending statistic %s = %d', stat.name, stat.value);
 
         if (typeof stat !== 'object' || !stat.hasOwnProperty('name') || !stat.hasOwnProperty('value')) {
