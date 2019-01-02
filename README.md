@@ -12,9 +12,12 @@
 
 A simple service that pushes system information (e.g. system usage, memory, cpu, network, swap, diskio, and disk usage) to any compatible statsd service (e.g. StatsD, Telegraf, DogStatsD, etc.)
 
+***Note:*** Version 2.0.0 contains breaking changes to how some statistics are delivered to the statsd server, and how the Uriel process is configured. Please consult the documentation for information on these breakages.
+
 # Table of Contents
 
-  1. [Documentation](#documentation)
+  1. [Migrating from 1.x](#migrating)
+  2. [Documentation](#documentation)
       1. [Modes of Operation](#uriel-modes)
           1. [Stand-alone Service](#standalone)
               1. [Installation](#standalone-installation)
@@ -31,13 +34,22 @@ A simple service that pushes system information (e.g. system usage, memory, cpu,
       2. [Configuration Object](#uriel-configuration)
       3. [Logging Object](#uriel-logging)
       4. [Statsd Buckets](#statsd-buckets)
-  2. [Changelog](#changelog)
-  3. [License](#license)
+  3. [Changelog](#changelog)
+  4. [License](#license)
 
 # Goals
 **`Uriel`** is designed to be a lightweight NodeJS agent that gathers system information and delivers it to a compatible statsd service over UDP. It can be embedded within another service, or setup and configured as its own stand-alone service that runs on the system being monitored. At the time of creation, other NodeJS systeminfo agents were unsuitable due to their inflexibility or poor implementations. Uriel was created to (ideally) bridge those shortcomings. It uses UDP, because of the decreased network overhead that is required in comparison to TCP.
 
-The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (i.e. The Watchers). The name was chosen both because of its association with illuminating dark places and watching things -- concepts related to system monitoring.
+The name [Uriel](https://en.wikipedia.org/wiki/Uriel) is associated with Abrahamic religions for the Archangel which represents the light of the divine and as one who had dominion over another type of angel, the Gregori (a.k.a. ***The Watchers***). The name was chosen both because of its association with illuminating dark places and watching things which are two abstract concepts related to system monitoring.
+
+<a name="migrating"></a>
+# [Migrating from 1.x](#migrating)
+So that grouped dashboards are possible, version 2.x moves CPU and Disk Usage reporting for individual cpu/disks and the aggregate totals into tagged metrics. Any dashboards which rely on this reporting will need to be updated as follows:
+  * If you are monitoring total CPU or Disk stats, then you will need to update your dashboards to look for the `cpu:total` or `disk:total` respectively.
+  * If you are monitoring individual CPU or Disks, then you will need to update your dashboards from `cpu.cpu0_usage_idle` / `disk.disk0_free` to `cpu.usage_idle` / `disk.free` with tags `cpu:0` / `disk:0`.
+
+It is also now possible to configure global tags which are sent for all metrics in the server configuration. These are setup with the `statsd.tags` array of the server configuration. This allows for
+systems being monitored in auto-scaling groups or under load-balancing to be grouped together by shared tags in dashboards. This is especially useful under architectures where the exact specification (size/number of systems/etc.) is mutable.
 
 <a name="documentataion"></a>
 # [Documentation](#documentation)
@@ -259,7 +271,6 @@ The following buckets are used to capture statistics:
 |**`cpu.usage_idle`**|CPU|% of CPU idle|
 |**`cpu.usage_irq`**|CPU|% of CPU usage from system IRQs|
 |**`cpu.usage_total`**|CPU|% of non-idle CPU usage|
-|**`cpu.cpu(#)_...`**|CPU|Same stats as above, but for the individually # cpu|
 |**`cpu.num_cpus`**|CPU|Count of CPUs on the system|
 |**`mem.free`**|Memory|Free Memory (in bytes)|
 |**`mem.free_percent`**|Memory|% of Free Memory|
@@ -285,7 +296,6 @@ The following buckets are used to capture statistics:
 |**`disk.total`**|Disk Usage|Total Disk (in bytes)|
 |**`disk.used`**|Disk Usage|Used Disk (in bytes)|
 |**`disk.used_percent`**|Disk Usage|% of Used Disk|
-|**`disk.disk(#)_...`**|Disk Usage|Same stats as above but for the individually numbered disk|
 |**`disk.num_disks`**|Disk Usage|Count of Disks in the system|
 |**`swap.free`**|Swap Usage|Free Swap (in bytes)|
 |**`swap.free_percent`**|Swap Usage|% of Free Swap|
@@ -293,10 +303,18 @@ The following buckets are used to capture statistics:
 |**`swap.used`**|Swap Usage|Used Swap (in bytes)|
 |**`swap.used_percent`**|Swap Usage|% of Used Swap|
 
-**Note:** CPU or Disk Usage reflect the combined usage across all CPUs or Disks.
+**Note:** CPU or Disk Usage are delivered as tagged sets, with the 'cpu' and 'disk' tags respectively to mark the individual cpu or disk numbers or the 'total' for the aggregation of all cpus or disks.
 
 <a name="changelog"></a>
 # [Changelog](#changelog)
+
+## 2.0.0
+***Note***: This is a major version change that contains breaking changes to the old function & reporting. Please review the documentation for updates to how data is now reported.
+* Improvements on delivery and handling of tagged metrics, an array of tags can now be configured to be delivered with each metric
+* CPU and Disk Usage reporting are now delivered as tagged sets of data. The `cpu` and `disk` tags provide enumerate each of the individual cpus and disks; or have the tag value `total` to indicate the aggregation of all items.
+* Refactored all monitors to be execute as Promises to reduce memory and cpu overhead
+* Refactored statistics collection to use a factory pattern in an effort to further reduce memory overhead
+* Migrated to Winston v3 logging
 
 ## 1.9.6
 * Updating outdated dependencies again
@@ -337,4 +355,4 @@ The following buckets are used to capture statistics:
 <a name="license"></a>
 # [License](#license)
 
-Copyright (c) 2017, 2018 Jay Reardon -- Licensed under the MIT license.
+Copyright (c) 2017, 2018, 2019 Jay Reardon -- Licensed under the MIT license.
