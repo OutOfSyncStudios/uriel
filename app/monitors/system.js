@@ -12,7 +12,13 @@ class SystemMonitor extends Monitor {
     const load = os.loadavg() || [0, 0, 0];
     const uptime = os.uptime() || 0;
 
-    this.setStats(this.bundleStats({ load1: load[0], load5: load[1], load15: load[2], uptime: uptime }));
+    this.setStats(this.bundleStats({
+      load1: load[0],
+      load5: load[1],
+      load15:
+      load[2],
+      uptime: uptime
+    }));
   }
 }
 

@@ -85,7 +85,6 @@ class CpuMonitor extends Monitor {
 
     // Save the current into the old
     this.currentCpuTimes = newCpuTimes;
-
     return intervalCpuTimes;
   }
 
