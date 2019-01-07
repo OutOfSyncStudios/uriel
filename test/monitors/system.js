@@ -1,6 +1,5 @@
 // test/monitors/system.js
 
-const __ = require('@mediaxpost/lodashext');
 const chai = require('chai');
 const expect = chai.expect;
 const SystemMonitor = require('../../app/monitors/system');
