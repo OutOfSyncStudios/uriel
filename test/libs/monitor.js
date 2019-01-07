@@ -10,7 +10,7 @@ const LogStub = require('logstub');
 module.exports = (config, libTest) => {
   describe('Monitor', () => {
     before(async() => {
-      let factory = libTest.statsFactory
+      let factory = libTest.statsFactory;
       if (__.isUnset(factory)) {
         const hostname = 'test';
         const statsd = null;
@@ -36,10 +36,12 @@ module.exports = (config, libTest) => {
     });
 
     it('setStats', () => {
-      const params = [libTest.monitor.bundleStats({
-        lame: 1,
-        test: 'test'
-      })];
+      const params = [
+        libTest.monitor.bundleStats({
+          lame: 1,
+          test: 'test'
+        })
+      ];
       libTest.monitor.setStats(params);
       const stats = libTest.monitor.statistics;
       expect(Array.isArray(stats)).to.be.equal(true);
@@ -55,7 +57,7 @@ module.exports = (config, libTest) => {
 
     it('collect', () => {
       expect(libTest.monitor.collect).to.be.a('function');
-      let val = libTest.monitor.collect();
+      const val = libTest.monitor.collect();
       expect(val).to.be.an('undefined');
     });
   });

@@ -1,6 +1,5 @@
 // test/monitors/disk.js
 
-const __ = require('@mediaxpost/lodashext');
 const chai = require('chai');
 const expect = chai.expect;
 const DiskMonitor = require('../../app/monitors/disk');

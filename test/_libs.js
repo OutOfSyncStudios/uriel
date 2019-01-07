@@ -1,7 +1,6 @@
 // test/_libs.js
 
 // Dependancies
-const __ = require('@mediaxpost/lodashext');
 const config = require('../config/config');
 
 const libTest = { logger: null, monitor: null, statsFactory: null };

@@ -1,6 +1,5 @@
 // test/monitors/memory.js
 
-const __ = require('@mediaxpost/lodashext');
 const chai = require('chai');
 const expect = chai.expect;
 const MemoryMonitor = require('../../app/monitors/memory');

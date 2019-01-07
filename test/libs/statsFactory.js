@@ -16,7 +16,7 @@ const statsd = {
       callback();
     }
   })
-}
+};
 
 module.exports = ((config, libTest) => {
   describe('StatsFactory', () => {
@@ -45,7 +45,7 @@ module.exports = ((config, libTest) => {
     });
 
     it('send (bad collection)', () => {
-      const badfn = (() => { libTest.statsFactory.send('lame') });
+      const badfn = (() => { libTest.statsFactory.send('lame'); });
       expect(badfn).to.throw();
     });
 

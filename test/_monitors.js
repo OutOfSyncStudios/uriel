@@ -1,7 +1,6 @@
 // test/_monitors.js
 
 // Dependancies
-const __ = require('@mediaxpost/lodashext');
 const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
