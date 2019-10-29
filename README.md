@@ -136,7 +136,7 @@ To configure, run:
 ```shell
 npm run config
 ```
-This will ask a series of questions which provides the base configuration. Alternatively, it is possible to manually edit the `<uriel-base>/config/config.js` file to make adjustments. The configuration file is an exported version of the [Configuration Object](#relay-configuration).
+This will ask a series of questions which provides the base configuration. Alternatively, it is possible to manually edit the `<uriel-base>/config/config.js` file to make adjustments. The configuration file is an exported version of the [Configuration Object](#uriel-configuration).
 
 <a name="docker-running"></a>
 #### [Running](#docker-running)
