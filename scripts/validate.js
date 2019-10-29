@@ -1,20 +1,20 @@
-typeErrors = {
+const typeErrors = {
   int: 'Please enter a valid integer',
   float: 'Please enter a valid number',
   bool: 'Please enter a \'true\' or \'false\' value',
-}
+};
 
 module.exports = (value, type) => {
   let test = true;
   switch (type) {
     case 'int': {
-      if (parseInt(value) === NaN) {
+      if (isNaN(parseInt(value))) {
         test = typeErrors[type];
       }
       break;
     }
     case 'float': {
-      if (parseFloat(value) === NaN) {
+      if (isNaN(parseFloat(value))) {
         test = typeErrors[type];
       }
       break;
@@ -30,4 +30,4 @@ module.exports = (value, type) => {
       break;
   }
   return test;
-}
+};

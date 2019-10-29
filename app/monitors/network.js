@@ -1,12 +1,12 @@
 // app/monitors/network.js
 
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
 class NetworkMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('network', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('network', statsFactory);
 
     this.connectionsStatesCountStatsd = {};
   }
@@ -27,13 +27,13 @@ class NetworkMonitor extends Monitor {
       .then((connections) => {
         for (const data of connections) {
           const snakeStr = __.snakeCase(data.state);
-          if (connectionStates.hasOwnProperty(snakeStr)) {
+          if (Object.prototype.hasOwnProperty.call(connectionStates, snakeStr)) {
             connectionStates[snakeStr] += 1;
           } else {
             connectionStates[snakeStr] = 1;
           }
         }
-        this.setStats(connectionStates);
+        this.setStats(this.bundleStats(connectionStates));
       })
       .catch((err) => {
         this.log.error(err.stack || err);

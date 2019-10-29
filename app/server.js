@@ -1,10 +1,11 @@
 // app/server.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext'),
-  LogStub = require('logstub'),
-  os = require('os'),
-  StatsD = require('hot-shots');
+const __ = require('@outofsync/lodash-ex');
+const LogStub = require('logstub');
+const os = require('os');
+const StatsD = require('hot-shots');
+const StatsFactory = require('./lib/statsFactory');
 
 // const server = {};
 
@@ -39,6 +40,7 @@ class Server {
     this.isActive = false;
     this.monitors = {};
     this.timer = null;
+    this.statsFactory = {};
   }
 
   // ****************************************************************************
@@ -66,7 +68,7 @@ class Server {
   init() {
     this.isActive = true;
     this.setupConnection();
-    this.monitors = require('./monitors')(this.hostname, this.statsd, this.log, this.tags);
+    this.monitors = require('./monitors')(this.statsFactory);
 
     // call setInterval for polling
     this.log.info(`Running polling every ${this.config.server.pollingTimer}ms...`);
@@ -87,6 +89,7 @@ class Server {
         this.log.error(err);
       }
     });
+    this.statsFactory = new StatsFactory(this.hostname, this.statsd, this.tags, this.log);
   }
 
   // ****************************************************************************
@@ -94,42 +97,39 @@ class Server {
   // ***************************************************************************/
   runStats() {
     this.log.debug('Running Information Polling');
-    this.collectStats();
-    this.sendStats();
+    this.statsLoop()
+      .then(() => {
+        this.log.debug('Complete Polling');
+      })
+      .catch((err) => {
+        this.log.error(err.message || err);
+      });
   }
 
   // ****************************************************************************
-  // Collect Stats
+  // Collecting and Sending Stats
   // ***************************************************************************/
-  collectStats() {
+  statsLoop() {
+    const promiseArray = [];
     const monitors = this.monitors;
     for (const mon in monitors) {
-      if (monitors.hasOwnProperty(mon)) {
+      if (Object.prototype.hasOwnProperty.call(monitors, mon)) {
         const monitor = this.monitors[mon];
-        const str = ' statistics for (' + monitor.name + ' monitor)...';
-        this.log.debug('Collecting' + str);
-        monitor.collect();
-        this.log.debug('Collected' + str);
+        const str = '(' + monitor.name + ' monitor)...';
+        this.log.debug('Collecting ' + str);
+        const prm = monitor.collectPromise()
+          .then(() => {
+            this.log.debug('Sending ' + str);
+            return monitor.sendPromise(this.isActive);
+          })
+          .then(() => {
+            this.log.debug('Updating ' + str);
+            return monitor.clearPromise();
+          });
+        promiseArray.push(prm);
       }
     }
-  }
-
-  // ****************************************************************************
-  // Send Stats
-  // ***************************************************************************/
-  sendStats() {
-    const monitors = this.monitors;
-    for (const mon in monitors) {
-      if (monitors.hasOwnProperty(mon)) {
-        const monitor = this.monitors[mon];
-        const str = ' statistics for (' + monitor.name + ' monitor)';
-        const postStr = ' to ' + this.config.statsd.host + ' as ' + this.hostname;
-        this.log.debug('Sending' + str + '...');
-        monitor.send(this.isActive);
-        this.log.debug('Sent' + str + postStr);
-        monitor.clear();
-      }
-    }
+    return Promise.all(promiseArray);
   }
 }
 
