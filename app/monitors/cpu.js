@@ -2,14 +2,15 @@
 
 const os = require('os');
 const Monitor = require('../lib/monitor');
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 
 class CpuMonitor extends Monitor {
-  constructor(hostname, statsd, log, tags) {
-    super('cpu', hostname, statsd, log, tags);
+  constructor(statsFactory) {
+    super('cpu', statsFactory);
   }
 
   collect() {
+    const allStats = [];
     const intervalCpuTimes = this.getIntervalCpuTimes();
 
     if (intervalCpuTimes === null) {
@@ -28,29 +29,32 @@ class CpuMonitor extends Monitor {
       usage_sys: (intervalCpuTimes.sys / totalIntervalCpuTime * 100).toFixed(2),
       usage_idle: (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2),
       usage_irq: (intervalCpuTimes.irq / totalIntervalCpuTime * 100).toFixed(2),
-      usage_total: 100 - (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2)
+      usage_total: 100 - (intervalCpuTimes.idle / totalIntervalCpuTime * 100).toFixed(2),
+      num_cpus: intervalCpuTimes.cpus.length
     };
 
-    stats.num_cpus = intervalCpuTimes.cpus.length;
+    allStats.push(this.bundleStats(stats, ['cpu:total']));
+
     for (let itr = 0, jtr = intervalCpuTimes.cpus.length; itr < jtr; itr++) {
       const cpu = intervalCpuTimes.cpus[itr];
-      const key = `cpu${itr}`;
+      const tags = [`cpu:${itr}`];
       const totalIndividualCpuTime = cpu.user +
-         cpu.nice +
-         cpu.sys +
-         cpu.idle +
-         cpu.irq;
+        cpu.nice +
+        cpu.sys +
+        cpu.idle +
+        cpu.irq;
 
-      stats[`${key}_usage_user`] = (cpu.user / totalIndividualCpuTime * 100).toFixed(2);
-      stats[`${key}_usage_nice`] = (cpu.nice / totalIndividualCpuTime * 100).toFixed(2);
-      stats[`${key}_usage_sys`] = (cpu.sys / totalIndividualCpuTime * 100).toFixed(2);
-      stats[`${key}_usage_idle`] = (cpu.idle / totalIndividualCpuTime * 100).toFixed(2);
-      stats[`${key}_usage_irq`] = (cpu.irq / totalIndividualCpuTime * 100).toFixed(2);
-      stats[`${key}_usage_total`] = 100 - (cpu.idle / totalIndividualCpuTime * 100).toFixed(2);
+      const cpuStats = {
+        usage_user: (cpu.user / totalIndividualCpuTime * 100).toFixed(2),
+        usage_nice: (cpu.nice / totalIndividualCpuTime * 100).toFixed(2),
+        usage_sys: (cpu.sys / totalIndividualCpuTime * 100).toFixed(2),
+        usage_idle: (cpu.idle / totalIndividualCpuTime * 100).toFixed(2),
+        usage_irq: (cpu.irq / totalIndividualCpuTime * 100).toFixed(2),
+        usage_total: 100 - (cpu.idle / totalIndividualCpuTime * 100).toFixed(2)
+      };
+      allStats.push(this.bundleStats(cpuStats, tags));
     }
-
-
-    this.setStats(stats);
+    this.setStats(allStats);
   }
 
   getIntervalCpuTimes() {
@@ -81,7 +85,6 @@ class CpuMonitor extends Monitor {
 
     // Save the current into the old
     this.currentCpuTimes = newCpuTimes;
-
     return intervalCpuTimes;
   }
 

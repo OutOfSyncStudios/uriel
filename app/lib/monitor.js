@@ -1,44 +1,72 @@
 // app/lib/monitor.js
-const __ = require('@mediaxpost/lodashext');
-const Statistic = require('./statistic');
+const __ = require('@outofsync/lodash-ex');
 
 class Monitor {
-  constructor(name, hostname, statsd, log, tags) {
+  constructor(name, statsFactory) {
     this.name = name;
-    this.hostname = hostname;
-    this.statsd = statsd;
-    this.log = log;
+    this.statsFactory = statsFactory;
     this.statistics = [];
-    this.tags = [];
-    if (Array.isArray(tags)) {
-      // Make a copy of the tags array (the original array should remain immutable)
-      this.tags = Object.assign([], tags);
-    }
+    this.log = this.statsFactory.log;
   }
 
-  setStats(obj) {
+  bundleStats(stats, tags) {
+    tags = tags || [];
+    return {
+      value: stats,
+      tags: tags
+    };
+  }
+
+  setStats(objArr) {
     this.log.silly(`[${this.name}] Setting statistics`);
-    this.statistics = __.toPairs(obj).map((pair) => {
-      let name = this.name + '.' + pair[0];
-      return new Statistic(name, pair[1], this.hostname, this.statsd, this.log, this.tags);
-    });
+    if (!Array.isArray(objArr)) {
+      objArr = [objArr];
+    }
+    this.statistics = [];
+    for (let itr = 0, itrTest = objArr.length; itr < itrTest; itr++) {
+      const obj = objArr[itr];
+      const tempStats = __.toPairs(obj.value).map((pair) => {
+        const name = this.name + '.' + pair[0];
+        const val = pair[1];
+        return this.statsFactory.create(name, val, obj.tags);
+      });
+      this.statistics = this.statistics.concat(tempStats);
+    }
   }
 
   send(isActive) {
     // Only send if the server is still active and not shutting down
     if (isActive) {
       this.log.silly(`[${this.name}] Sending statistics`);
-
-      const statistics = this.statistics;
-      for (let itr = 0, jtr = statistics.length; itr < jtr; itr++) {
-        const stat = statistics[itr];
-        stat.send();
-      }
+      this.statsFactory.send(this.statistics);
     }
+  }
+
+  sendPromise(isActive) {
+    return new Promise((resolve) => {
+      resolve(this.send(isActive));
+    });
   }
 
   clear() {
     this.statistics = [];
+  }
+
+  clearPromise() {
+    return new Promise((resolve) => {
+      resolve(this.clear());
+    });
+  }
+
+  collect() {
+    // Do Nothing.. this is for override reasons
+    return;
+  }
+
+  collectPromise() {
+    return new Promise((resolve) => {
+      resolve(this.collect());
+    });
   }
 }
 

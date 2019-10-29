@@ -1,9 +1,10 @@
 // app/lib/logger.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 const fs = require('fs');
 const winston = require('winston');
+const { format } = winston;
 
 /**
  * A utility class to wrap Winston logging
@@ -21,13 +22,13 @@ class Logger {
         filename: `${this.logDir}/info.log`,
         name: 'info-log',
         level: 'info',
-        formatter: this.formatter
+        format: format.printf(this.formatter)
       }),
       new winston.transports.File({
         filename: `${this.logDir}/error.log`,
         name: 'error-log',
         level: 'error',
-        formatter: this.formatter
+        format: format.printf(this.formatter)
       })
     ];
 
@@ -35,18 +36,9 @@ class Logger {
     // if ((process.env.NODE_ENV !== 'production') && (process.env.NODE_ENV !== 'test')) {
     transports.push(new winston.transports.Console({ level: 'debug', formatter: this.formatter }));
 
-    // transports.push(
-    //   new (winston.transports.File) ({
-    //     filename: this.logDir + '/debug.log',
-    //     name: 'debug-log',
-    //     level: 'debug',
-    //     formatter: this.formatter
-    //   })
-    // );
-    // }
     this.options = {
       exitOnError: false,
-      formatter: this.formatter,
+      format: winston.format.printf(this.formatter),
       transports: transports
     };
 
@@ -58,11 +50,15 @@ class Logger {
 
     // Merge options from config into this object
     this.options = __.assign(this.options, config.logging.options);
-    this.log = new winston.Logger(this.options);
+    this.log = winston.createLogger(this.options);
   }
 
   formatter(options) {
-    return `${new Date().toISOString()} [${options.level.toUpperCase()}]: ${options.message}`;
+    let message = options.message;
+    if (!message) {
+      message = JSON.parse(options[Symbol.for('message')])['@message'];
+    }
+    return `${new Date().toISOString()} [${options.level.toUpperCase()}]: ${message}`;
   }
 
   handleError(err) {

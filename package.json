@@ -1,6 +1,6 @@
 {
   "name": "uriel",
-  "version": "1.9.6",
+  "version": "2.0.1",
   "description": "A NodeJS statsd agent to push memory, cpu, network, swap, diskio, and disk usage over UDP",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MediaXPost/uriel.git"
+    "url": "git+https://github.com/OutofSyncStudios/uriel.git"
   },
   "keywords": [
     "statsd-agent",
@@ -32,35 +32,36 @@
   "author": "Jay Reardon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MediaXPost/uriel/issues"
+    "url": "https://github.com/OutofSyncStudios/uriel/issues"
   },
-  "homepage": "https://github.com/MediaXPost/uriel#readme",
+  "homepage": "https://github.com/OutofSyncStudios/uriel#readme",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "@mediaxpost/lodashext": "^1.2.0",
-    "chalk": "^2.4.1",
-    "commander": "^2.19.0",
-    "hot-shots": "^6.0.1",
-    "inquirer": "^6.2.1",
-    "logstub": "^1.2.1",
-    "moment": "^2.23.0",
-    "systeminformation": "^3.52.2",
-    "winston": "^2.4.4"
+    "@outofsync/lodash-ex": "^1.3.2",
+    "chalk": "^2.4.2",
+    "commander": "^3.0.2",
+    "hot-shots": "^6.8.1",
+    "inquirer": "^7.0.0",
+    "logstub": "^1.3.0",
+    "moment": "^2.24.0",
+    "systeminformation": "^4.14.17",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "codacy-coverage": "^3.3.0",
-    "eslint": "^5.11.0",
-    "gulp": "^4.0.0",
-    "gulp-eslint": "^5.0.0",
-    "gulp-mocha": "^6.0.0",
+    "chai-match": "^1.1.1",
+    "codacy-coverage": "^3.4.0",
+    "eslint": "^6.6.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.1",
-    "gulp-prettier": "^2.0.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "prettier": "^1.15.3"
+    "gulp-prettier": "^2.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2"
   }
 }

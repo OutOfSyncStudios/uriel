@@ -12,6 +12,8 @@ const prettyConf = require('./.prettierrc.json');
 const devFolder = config.devFolder;
 const testFolder = config.testFolder;
 const configFolder = config.configFolder;
+const scriptsFolder = config.scriptsFolder;
+
 
 const allJSFiles = [
   '*.js',
@@ -19,7 +21,8 @@ const allJSFiles = [
   `${testFolder}/*.js`,
   `${devFolder}/**/*.js`,
   `${devFolder}/*.js`,
-  `${configFolder}/*.js`
+  `${configFolder}/*.js`,
+  `${scriptsFolder}/*.js`  
 ];
 
 const esLintOpts = { configFile: '.eslintrc.json', fix: true };
