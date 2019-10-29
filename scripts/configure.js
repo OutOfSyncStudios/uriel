@@ -1,16 +1,15 @@
 #!/usr/bin/env node
-
+/* eslint-disable no-console */
 const configFile = './config/config.js';
-const baseConfigFile = './config/default-config.js';
 
 const __ = require('lodash');
-const fs = require('fs')
+const fs = require('fs');
 const inquirer = require('inquirer');
 const validate = require('./validate');
 const baseConfig = require('../config/default-config');
 const config = require('../config/config');
 
-let conf = __.merge(baseConfig, config);
+const conf = __.merge(baseConfig, config);
 
 const modes = [
   'Stand-alone Service',
@@ -26,9 +25,8 @@ function validateInt(val) {
 function minTime(val, min) {
   if (val >= min) {
     return true;
-  } else {
-    return `Value must be greater or equal to ${min}`;
   }
+  return `Value must be greater or equal to ${min}`;
 }
 
 function intMinTime(val) {
@@ -148,13 +146,13 @@ function mapAnswers(answers) {
 function doConfig() {
   setupQuestions();
   inquirer.prompt(questions)
-  .then((answers) => {
-    mapAnswers(answers);
-    fs.writeFileSync(configFile, `module.exports = ${JSON.stringify(conf, null, 2)};`);
-  })
-  .catch((err) => {
-    console.error(err.stack || err);
-  })
+    .then((answers) => {
+      mapAnswers(answers);
+      fs.writeFileSync(configFile, `module.exports = ${JSON.stringify(conf, null, 2)};`);
+    })
+    .catch((err) => {
+      console.error(err.stack || err);
+    });
 }
 
 
@@ -166,13 +164,13 @@ inquirer.prompt([
     message: 'This option will overwrite your existing configuration. Are you sure?'
   }
 ])
-.then((answers) => {
-  if (answers.ok) {
-    doConfig();
-  } else {
-    console.log('Operation aborted');
-  }
-})
-.catch((err) => {
-  console.error(err.stack || err);
-});
+  .then((answers) => {
+    if (answers.ok) {
+      doConfig();
+    } else {
+      console.log('Operation aborted');
+    }
+  })
+  .catch((err) => {
+    console.error(err.stack || err);
+  });

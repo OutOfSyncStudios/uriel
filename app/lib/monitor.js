@@ -1,5 +1,5 @@
 // app/lib/monitor.js
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 
 class Monitor {
   constructor(name, statsFactory) {

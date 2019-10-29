@@ -1,7 +1,7 @@
 // app/server.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 const LogStub = require('logstub');
 const os = require('os');
 const StatsD = require('hot-shots');
@@ -113,7 +113,7 @@ class Server {
     const promiseArray = [];
     const monitors = this.monitors;
     for (const mon in monitors) {
-      if (monitors.hasOwnProperty(mon)) {
+      if (Object.prototype.hasOwnProperty.call(monitors, mon)) {
         const monitor = this.monitors[mon];
         const str = '(' + monitor.name + ' monitor)...';
         this.log.debug('Collecting ' + str);

@@ -3,12 +3,12 @@
 [![NPM](https://nodei.co/npm/uriel.png?downloads=true)](https://nodei.co/npm/uriel/)
 
 [![Actual version published on npm](http://img.shields.io/npm/v/uriel.svg)](https://www.npmjs.org/package/uriel)
-[![Travis build status](https://travis-ci.org/MediaXPost/uriel.svg)](https://travis-ci.org/MediaXPost/uriel)
+[![Travis build status](https://travis-ci.org/OutOfSyncStudios/uriel.svg)](https://travis-ci.org/OutOfSyncStudios/uriel)
 [![Total npm module downloads](http://img.shields.io/npm/dt/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Package Quality](http://npm.packagequality.com/shield/uriel.svg)](http://packagequality.com/#?package=uriel)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MediaXPost/uriel&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d264ea63a69a4e3899ce06d6e81f18fb)](https://www.codacy.com/app/chronosis/uriel?utm_source=github.com&utm_medium=referral&utm_content=MediaXPost/uriel&utm_campaign=Badge_Coverage)
-[![Dependencies badge](https://david-dm.org/MediaXPost/uriel/status.svg)](https://david-dm.org/MediaXPost/uriel?view=list)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/manual/OutOfSyncStudios/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/uriel&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/app/OutOfSyncStudios/uriel?utm_source=github.com&utm_medium=referral&utm_content=OutOfSyncStudios/uriel&utm_campaign=Badge_Coverage)
+[![Dependencies badge](https://david-dm.org/OutOfSyncStudios/uriel/status.svg)](https://david-dm.org/OutOfSyncStudios/uriel?view=list)
 
 A simple service that pushes system information (e.g. system usage, memory, cpu, network, swap, diskio, and disk usage) to any compatible statsd service (e.g. StatsD, Telegraf, DogStatsD, etc.)
 
@@ -74,7 +74,7 @@ To install, clone the git repository:
 
 
 ```
-$ git clone https://github.com/MediaXPost/uriel.git
+$ git clone https://github.com/OutOfSyncStudios/uriel.git
 $ cd uriel
 ```
 
@@ -125,7 +125,7 @@ $ pm2 start app.js -n "Uriel" -i 1 -- -c <fullpath to config file>
 To install, clone the git repository:
 
 ```
-$ git clone https://github.com/MediaXPost/uriel.git
+$ git clone https://github.com/OutOfSyncStudios/uriel.git
 $ cd uriel
 ```
 
@@ -355,4 +355,5 @@ The following buckets are used to capture statistics:
 <a name="license"></a>
 # [License](#license)
 
-Copyright (c) 2017, 2018, 2019 Jay Reardon -- Licensed under the MIT license.
+Copyright (c) 2017, 2018, 2019 Jay Reardon
+Copyright (c) 2019 Out of Sync Studios LLC  -- Licensed under the MIT license.

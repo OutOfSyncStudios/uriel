@@ -1,5 +1,5 @@
 // app/lib/statsFactory.js
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 
 class StatsFactory {
   constructor(hostname, statsd, tags, log) {
@@ -50,7 +50,9 @@ class StatsFactory {
         const stat = collection[itr];
         this.log.silly('Sending statistic %s = %d', stat.name, stat.value);
 
-        if (typeof stat !== 'object' || !stat.hasOwnProperty('name') || !stat.hasOwnProperty('value')) {
+        if (typeof stat !== 'object' ||
+          !Object.prototype.hasOwnProperty.call(stat, 'name') ||
+          !Object.prototype.hasOwnProperty.call(stat, 'value')) {
           continue;
         }
 

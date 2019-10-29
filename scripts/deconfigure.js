@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-
-const fs = require('fs')
+/* eslint-disable no-console */
+const fs = require('fs');
 const inquirer = require('inquirer');
 
 const configFile = './config/config.js';
@@ -22,19 +22,19 @@ inquirer.prompt([
     message: 'You are about to destroy the current configuration. Are you sure?'
   }
 ])
-.then((answers) => {
-  if (answers.ok) {
-    if (fs.existsSync(configFile)) {
-      console.log('Removing old configuration');
-      fs.unlinkSync(configFile);
+  .then((answers) => {
+    if (answers.ok) {
+      if (fs.existsSync(configFile)) {
+        console.log('Removing old configuration');
+        fs.unlinkSync(configFile);
+      }
+      console.log('Copy base configuration back');
+      copyFile(baseConfigFile, configFile);
+      console.log('Finished');
+    } else {
+      console.log('Operation aborted');
     }
-    console.log('Copy base configuration back');
-    copyFile(baseConfigFile, configFile);
-    console.log('Finished');
-  } else {
-    console.log('Operation aborted');
-  }
-})
-.catch((err) => {
-  console.error(err.stack || err);
-});
+  })
+  .catch((err) => {
+    console.error(err.stack || err);
+  });

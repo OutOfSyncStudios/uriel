@@ -1,12 +1,13 @@
 // test/libs/monitor.js
 
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 const chai = require('chai');
 const expect = chai.expect;
 const Monitor = require('../../app/lib/monitor');
 const StatsFactory = require('../../app/lib/statsFactory');
 const LogStub = require('logstub');
 
+/* eslint-disable require-atomic-updates */
 module.exports = (config, libTest) => {
   describe('Monitor', () => {
     before(async() => {
@@ -18,7 +19,8 @@ module.exports = (config, libTest) => {
         const log = new LogStub();
         factory = new StatsFactory(hostname, statsd, tags, log);
       }
-      libTest.monitor = await new Monitor('test', factory);
+      const monitor = await new Monitor('test', factory);
+      libTest.monitor = monitor;
     });
 
     it('constructor', () => {

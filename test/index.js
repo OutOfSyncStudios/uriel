@@ -10,6 +10,7 @@ const path = require('path');
  * unit test code.
  *
  */
+/* eslint-disable no-console */
 process.env.NODE_ENV = 'production';
 // Set the environment to testing
 console.log('Loading Tests...');

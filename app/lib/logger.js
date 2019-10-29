@@ -1,9 +1,10 @@
 // app/lib/logger.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext');
+const __ = require('@outofsync/lodash-ex');
 const fs = require('fs');
 const winston = require('winston');
+const { format } = winston;
 
 /**
  * A utility class to wrap Winston logging
@@ -21,13 +22,13 @@ class Logger {
         filename: `${this.logDir}/info.log`,
         name: 'info-log',
         level: 'info',
-        formatter: this.formatter
+        format: format.printf(this.formatter)
       }),
       new winston.transports.File({
         filename: `${this.logDir}/error.log`,
         name: 'error-log',
         level: 'error',
-        formatter: this.formatter
+        format: format.printf(this.formatter)
       })
     ];
 
@@ -52,8 +53,12 @@ class Logger {
     this.log = winston.createLogger(this.options);
   }
 
-  formatter(info) {
-    return `${new Date().toISOString()} [${info.level.toUpperCase()}]: ${info.message}`;
+  formatter(options) {
+    let message = options.message;
+    if (!message) {
+      message = JSON.parse(options[Symbol.for('message')])['@message'];
+    }
+    return `${new Date().toISOString()} [${options.level.toUpperCase()}]: ${message}`;
   }
 
   handleError(err) {
