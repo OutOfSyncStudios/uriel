@@ -7,10 +7,10 @@ const monitors = {};
 
 /*
  * This iterates through all .js files in the routes folder and loads them in
- * to the `monitors`` object. The purpose of this is to separate each of
+ * to the `monitors` object. The purpose of this is to separate each of
  * the monitor logics into its own file class for easie maintainability of the code.
  *
- * The `monitorr` object is returned to the paired `require('thisLib')` statement
+ * The `monitor` object is returned to the paired `require('thisLib')` statement
  * inside the host code.
  */
 module.exports = (statsFactory) => {

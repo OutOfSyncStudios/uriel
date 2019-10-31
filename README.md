@@ -5,7 +5,6 @@
 [![Actual version published on npm](http://img.shields.io/npm/v/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Travis build status](https://travis-ci.org/OutOfSyncStudios/uriel.svg)](https://travis-ci.org/OutOfSyncStudios/uriel)
 [![Total npm module downloads](http://img.shields.io/npm/dt/uriel.svg)](https://www.npmjs.org/package/uriel)
-[![Package Quality](http://npm.packagequality.com/shield/uriel.svg)](http://packagequality.com/#?package=uriel)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/manual/OutOfSyncStudios/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/uriel&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/app/OutOfSyncStudios/uriel?utm_source=github.com&utm_medium=referral&utm_content=OutOfSyncStudios/uriel&utm_campaign=Badge_Coverage)
 [![Dependencies badge](https://david-dm.org/OutOfSyncStudios/uriel/status.svg)](https://david-dm.org/OutOfSyncStudios/uriel?view=list)
@@ -308,6 +307,12 @@ The following buckets are used to capture statistics:
 <a name="changelog"></a>
 # [Changelog](#changelog)
 
+## 2.0.2
+* Minor bug fixes
+
+## 2.0.1
+* Minor bug fixes
+
 ## 2.0.0
 ***Note***: This is a major version change that contains breaking changes to the old function & reporting. Please review the documentation for updates to how data is now reported.
 * Improvements on delivery and handling of tagged metrics, an array of tags can now be configured to be delivered with each metric
@@ -355,5 +360,5 @@ The following buckets are used to capture statistics:
 <a name="license"></a>
 # [License](#license)
 
-Copyright (c) 2017, 2018, 2019 Jay Reardon
-Copyright (c) 2019 Out of Sync Studios LLC  -- Licensed under the MIT license.
+Copyright © 2017, 2018, 2019 Jay Reardon
+Copyright © 2019 Out of Sync Studios LLC  -- Licensed under the MIT license.
