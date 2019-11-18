@@ -3,7 +3,7 @@
 [![NPM](https://nodei.co/npm/uriel.png?downloads=true)](https://nodei.co/npm/uriel/)
 
 [![Actual version published on npm](http://img.shields.io/npm/v/uriel.svg)](https://www.npmjs.org/package/uriel)
-[![Travis build status](https://travis-ci.org/OutOfSyncStudios/uriel.svg)](https://travis-ci.org/OutOfSyncStudios/uriel)
+[![Travis build status](https://travis-ci.com/OutOfSyncStudios/uriel.svg)](https://travis-ci.com/OutOfSyncStudios/uriel)
 [![Total npm module downloads](http://img.shields.io/npm/dt/uriel.svg)](https://www.npmjs.org/package/uriel)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/manual/OutOfSyncStudios/uriel?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/uriel&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/ced17e413a2e48b0b27c3bc691a7c479)](https://www.codacy.com/app/OutOfSyncStudios/uriel?utm_source=github.com&utm_medium=referral&utm_content=OutOfSyncStudios/uriel&utm_campaign=Badge_Coverage)
