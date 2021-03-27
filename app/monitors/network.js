@@ -1,6 +1,6 @@
 // app/monitors/network.js
 
-const __ = require('@outofsync/lodash-ex');
+const snakeCase = require('lodash.snakecase');
 const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
@@ -26,7 +26,7 @@ class NetworkMonitor extends Monitor {
       .networkConnections()
       .then((connections) => {
         for (const data of connections) {
-          const snakeStr = __.snakeCase(data.state);
+          const snakeStr = snakeCase(data.state);
           if (Object.prototype.hasOwnProperty.call(connectionStates, snakeStr)) {
             connectionStates[snakeStr] += 1;
           } else {

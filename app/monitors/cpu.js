@@ -2,7 +2,7 @@
 
 const os = require('os');
 const Monitor = require('../lib/monitor');
-const __ = require('@outofsync/lodash-ex');
+const isNil = require('lodash.isnil');
 
 class CpuMonitor extends Monitor {
   constructor(statsFactory) {
@@ -60,7 +60,7 @@ class CpuMonitor extends Monitor {
   getIntervalCpuTimes() {
     const newCpuTimes = this.getCpuTimes();
 
-    if (__.isUnset(this.currentCpuTimes)) {
+    if (isNil(this.currentCpuTimes)) {
       this.currentCpuTimes = newCpuTimes;
       return null;
     }

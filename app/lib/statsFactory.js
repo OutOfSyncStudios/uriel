@@ -1,5 +1,6 @@
 // app/lib/statsFactory.js
-const __ = require('@outofsync/lodash-ex');
+const snakeCase = require('lodash.snakecase');
+const isNil = require('lodash.isnil');
 
 class StatsFactory {
   constructor(hostname, statsd, tags, log) {
@@ -21,7 +22,7 @@ class StatsFactory {
     tags = tags || [];
     name = name.split('.')
       .map((str) => {
-        return __.snakeCase(str);
+        return snakeCase(str);
       })
       .join('.');
 
@@ -44,7 +45,7 @@ class StatsFactory {
     }
 
     // Only send if the statsd connection has not been shut down
-    if (__.hasValue(this.statsd)) {
+    if (!isNil(this.statsd)) {
       for (let itr = 0, jtr = collection.length; itr < jtr; itr++) {
         let tempTags = Object.assign([], this.tags);
         const stat = collection[itr];

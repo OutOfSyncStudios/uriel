@@ -1,6 +1,6 @@
 // app/monitors/disk.js
 
-const __ = require('@outofsync/lodash-ex');
+const isNil = require('lodash.isnil');
 const si = require('systeminformation');
 const Monitor = require('../lib/monitor');
 
@@ -21,7 +21,7 @@ class DiskMonitor extends Monitor {
         for (let itr = 0, jtr = diskStatisticsList.length; itr < jtr; itr++) {
           const tags = [`disk:${itr}`];
           const diskStatistics = diskStatisticsList[itr];
-          if (__.hasValue(diskStatistics)) {
+          if (!isNil(diskStatistics)) {
             const size = diskStatistics.size;
             const used = diskStatistics.used;
             const free = size - used;
