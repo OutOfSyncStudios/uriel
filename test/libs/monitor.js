@@ -1,6 +1,6 @@
 // test/libs/monitor.js
 
-const __ = require('@outofsync/lodash-ex');
+const isNil = require('lodash.isnil');
 const chai = require('chai');
 const expect = chai.expect;
 const Monitor = require('../../app/lib/monitor');
@@ -12,7 +12,7 @@ module.exports = (config, libTest) => {
   describe('Monitor', () => {
     before(async() => {
       let factory = libTest.statsFactory;
-      if (__.isUnset(factory)) {
+      if (isNil(factory)) {
         const hostname = 'test';
         const statsd = null;
         const tags = [];

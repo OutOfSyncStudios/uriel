@@ -1,7 +1,8 @@
 // app/server.js
 
 // Dependencies
-const __ = require('@outofsync/lodash-ex');
+const isNil = require('lodash.isnil');
+const merge = require('lodash.merge');
 const LogStub = require('logstub');
 const os = require('os');
 const StatsD = require('hot-shots');
@@ -23,7 +24,7 @@ class Server {
 
     this.statsd = {};
     this.log = log || new LogStub();
-    this.config = __.merge(defaults, config || {});
+    this.config = merge(defaults, config || {});
     this.hostname = config.statsd.name || osHost;
     this.tags = [];
     if (Array.isArray(config.statsd.tags)) {
@@ -50,12 +51,12 @@ class Server {
     // Perform gracful shutdown here
     this.isActive = false;
 
-    if (__.hasValue(this.timer)) {
+    if (!isNil(this.timer)) {
       this.log.debug('Shutting down polling timer.');
       clearInterval(this.timer);
     }
 
-    if (__.hasValue(this.statsd)) {
+    if (!isNil(this.statsd)) {
       this.log.debug('Closing UDP connection to statsd server.');
       this.statsd.close();
       this.statsd = null;

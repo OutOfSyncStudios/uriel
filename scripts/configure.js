@@ -2,14 +2,14 @@
 /* eslint-disable no-console */
 const configFile = './config/config.js';
 
-const __ = require('lodash');
+const merge = require('lodash.merge');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const validate = require('./validate');
 const baseConfig = require('../config/default-config');
 const config = require('../config/config');
 
-const conf = __.merge(baseConfig, config);
+const conf = merge(baseConfig, config);
 
 const modes = [
   'Stand-alone Service',

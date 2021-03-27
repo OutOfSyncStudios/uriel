@@ -1,7 +1,7 @@
 // app/lib/logger.js
 
 // Dependencies
-const __ = require('@outofsync/lodash-ex');
+const assign = require('lodash.assign');
 const fs = require('fs');
 const winston = require('winston');
 const { format } = winston;
@@ -49,7 +49,7 @@ class Logger {
     }
 
     // Merge options from config into this object
-    this.options = __.assign(this.options, config.logging.options);
+    this.options = assign(this.options, config.logging.options);
     this.log = winston.createLogger(this.options);
   }
 

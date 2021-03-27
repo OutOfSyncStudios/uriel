@@ -1,5 +1,5 @@
 // app/lib/monitor.js
-const __ = require('@outofsync/lodash-ex');
+const toPairs = require('lodash.topairs');
 
 class Monitor {
   constructor(name, statsFactory) {
@@ -25,7 +25,7 @@ class Monitor {
     this.statistics = [];
     for (let itr = 0, itrTest = objArr.length; itr < itrTest; itr++) {
       const obj = objArr[itr];
-      const tempStats = __.toPairs(obj.value).map((pair) => {
+      const tempStats = toPairs(obj.value).map((pair) => {
         const name = this.name + '.' + pair[0];
         const val = pair[1];
         return this.statsFactory.create(name, val, obj.tags);

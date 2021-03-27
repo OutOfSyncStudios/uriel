@@ -1,7 +1,7 @@
 // app.js
 /* eslint no-console: "off" */
 
-const __ = require('lodash');
+const isNil = require('lodash.isnil');
 const fs = require('fs');
 const program = require('commander');
 const pack = require('./package.json');
@@ -92,7 +92,7 @@ class App {
 
     // Perform gracful shutdown here
     this.log.info(`Received exit code ${sigCode}, performing graceful shutdown`);
-    if (!__.isNull(this.server) && !__.isUndefined(this.server)) {
+    if (!isNil(this.server)) {
       this.server.close();
     }
     // Shutdown the server
